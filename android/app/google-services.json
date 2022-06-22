@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "32604681038",
+    "project_id": "mmt-club",
+    "storage_bucket": "mmt-club.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:32604681038:android:bcc138ac9d929ef7ede41f",
+        "android_client_info": {
+          "package_name": "com.souccar.mmtclub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "32604681038-0qele97of80ju8jflhied7c8s54is7cl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpVOHJ1mD2KUnR6Tk2v9RpnP8NN8XjoR8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "32604681038-0qele97of80ju8jflhied7c8s54is7cl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
