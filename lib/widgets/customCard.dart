@@ -36,8 +36,8 @@ class CustomCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(26),
       child: Ink(
         decoration: BoxDecoration(
-          boxShadow: [
-            new BoxShadow(
+          boxShadow: const [
+            BoxShadow(
               color: Colors.black,
               blurRadius: 15.0,
             ),
@@ -45,14 +45,14 @@ class CustomCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(26),
           gradient: LinearGradient(
             colors: [
-              gradientStartColor ?? Color(0xff441DFC),
-              gradientEndColor ?? Color(0xff4E81EB),
+              gradientStartColor ?? const Color(0xff441DFC),
+              gradientEndColor ?? const Color(0xff4E81EB),
             ],
             begin: Alignment.bottomLeft,
             end: Alignment.topRight,
           ),
         ),
-        child: Container(
+        child: SizedBox(
           height: 176.w,
           width: 305.w,
           child: Stack(

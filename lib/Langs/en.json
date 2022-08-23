@@ -1,5 +1,41 @@
 {
     "Username":"Username",
+    "phone_number":"Mobile",
+    "changePassword":"Change Password",
+    "newPassword":"New Password",
+    "confirmPassword":"Confirm Password",
+    "profile" : "Profile",
+
     "NATURE":"N A T U R E",
-    "isourinspiration":"is our inspiration"
+    "isourinspiration":"is our inspiration",
+    "seeMore":"See More",
+    "phone_number_ver" : "phone number verification",
+    "Verify" : "Verify",
+    "Retry":"Retry",
+    "Enter_the_code":"Enter the code sent to ",
+    "Points_Balance":"Points Balance",
+    "sorting" : "Sorting Alphabet",
+    "filtering" : "Filtering",
+    "signOut":"Sign Out",
+    "contactUs" : "Contact Us",
+    "terms":"Terms",
+    "FeedBack":"FeedBack and Complaints",
+    "cancel":"Cancel",
+    "send":"Send",
+    "products":"Show Products",
+    "gifts":"Gifts",
+    "notifactions":"Notifactions",
+    "allNews":"All News",
+    "thanks_for_compliment_reply":"thanks for compliment reply",
+    "try_again":"try again",
+    "product_details":"Product Details",
+    "no_items_found":"No Items Found",
+    "your_level":"Your Level : ",
+    "pull":"Pull down to Refresh",
+    "Notice":"Notice",
+    "your_qrcode_has_been_scanned":"Your Qrcode has been Scanned Successfully",
+    "go_to_home":"Go to Home"
+
+
+
 }

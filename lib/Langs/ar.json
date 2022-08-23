@@ -1,3 +1,52 @@
 {
-    "Username":"اسم المستخدم"
+    "Username":"اسم المستخدم",
+    "phone_number":"موبايل",
+    "profile" : "الملف الشخصي",
+    "seeMore":"اظهر المزيد",
+    "phone_number_ver" : "التحقق من رقم الهاتف" ,
+    "Verify" : " تحقق من الرمز",
+    "Retry":"اعادة ارسال الرمز",
+    "Enter_the_code":"قم بادخال الرمز المرسل للرقم ",
+    "Points_Balance":"رصيد النقاط",
+    "sorting" : "فرز بحسب الابجدية",
+    "filtering" : "فلترة",
+    "signOut":"تسجيل الخروج",
+    "joinUs" : "انضم لنا",
+    "contactUs" : "تواصل معنا",
+    "terms":"الشروط والاتفاقية",
+    "FeedBack":"شكاوي و شكر",
+    "cancel":"الغاء",
+    "send":"ارسال",
+    "products":"اظهار المنتجات",
+    "gifts":"هدايا",
+    "notifactions":"الاشعارات",
+    "allNews":"جميع الاخبار",
+    "thanks_for_compliment_reply":"شكرا لك ",
+    "try_again":"يرجى اعادة المحاولة",
+    "product_details":"تفاصيل المنتج",
+    "no_items_found": "لا يوجد عناصر",
+    "your_level":"مستواك :",
+    "pull":"قم بتحديث الصفحة",
+    "Notice":"ملاحظة",
+    "your_qrcode_has_been_scanned":"تم قراءة الكود بنجاح",
+    "go_to_home":"ار جع للصفحة الرئيسية"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

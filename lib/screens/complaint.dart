@@ -1,0 +1,163 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mmt_club/Models/Project/complaint_model.dart';
+import 'package:mmt_club/bloc/complaintBloc/complaint_bloc.dart';
+
+import '../Localization/Localization.dart';
+import '../styles/app_colors.dart';
+import '../widgets/custom_text.dart';
+
+class Complaint extends StatefulWidget {
+  const Complaint({Key? key}) : super(key: key);
+
+  @override
+  State<Complaint> createState() => _ComplaintState();
+}
+
+class _ComplaintState extends State<Complaint> {
+  final ComplaintBloc complaintBloc = ComplaintBloc();
+  late TextEditingController titleController;
+  late TextEditingController bodyController;
+  @override
+  void initState() {
+    super.initState();
+    titleController = TextEditingController();
+    bodyController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    titleController.dispose();
+    bodyController.dispose();
+  }
+
+  bool isSending = false;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        title: Text(
+          Localization.of(context).getTranslatedValue("FeedBack"),
+          style: TextStyle(
+            fontSize: 17,
+            //fontWeight: FontWeight.bold,
+            color: AppColors.textBlack,
+          ),
+        ),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: AppColors.textBlack,
+            )),
+      ),
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(16.w, 32.h, 16.w, 4.h),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                Localization.of(context).getTranslatedValue("FeedBack") + " :",
+                style: TextStyle(
+                  fontSize: 13.0.h,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              BlocListener(
+                bloc: complaintBloc,
+                listener: (context, state) {
+                  if (state is SendComplaintWaiting) {
+                  } else if (state is SendComplaintSuccessfully) {
+                    setState(() {
+                      isSending = false;
+                    });
+                    var snackBar = SnackBar(
+                      content: Text(Localization.of(context)
+                          .getTranslatedValue("thanks_for_compliment_reply")),
+                      backgroundColor: AppColors.success,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  } else {
+                    setState(() {
+                      isSending = false;
+                    });
+                    var snackBar = SnackBar(
+                      content: Text(Localization.of(context)
+                          .getTranslatedValue("try_again")),
+                      backgroundColor: AppColors.error,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(top: 4.h),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h),
+                    child: Column(
+                      children: [
+                        TextField(
+                          controller: titleController,
+                          cursorHeight: 25,
+                          cursorColor: AppColors.basicColor,
+                          decoration: InputDecoration(
+                            labelText: "Title",
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0)),
+                          ),
+                          maxLines: 1,
+                        ),
+                        SizedBox(height: 5.h),
+                        TextField(
+                          controller: bodyController,
+                          cursorHeight: 25,
+                          cursorColor: AppColors.basicColor,
+                          decoration: InputDecoration(
+                            //hintText: "Add Review",
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25.0)),
+                          ),
+                          maxLines: 10,
+                        ),
+                        SizedBox(height: 5.h),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              isSending
+                  ? const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : CustomText(
+                      text: Localization.of(context).getTranslatedValue("send"),
+                      onPressed: () {
+                        setState(() {
+                          isSending = true;
+                        });
+                        complaintBloc.add(SendComplaintEvent(ComplaintModel(
+                            titleController.text, bodyController.text)));
+                      },
+                      icon: FontAwesomeIcons.paperPlane,
+                      size: 20.h,
+                    )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
