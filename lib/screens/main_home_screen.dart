@@ -1,11 +1,17 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:mmt_club/Models/Project/home_model.dart';
+import 'package:mmt_club/bloc/homeBloc/home_bloc.dart';
+import 'package:mmt_club/widgets/pull.dart';
+import '../widgets/category.dart';
+import '../widgets/custom_circular_slider.dart';
+import '../widgets/shimmer_category.dart';
+import '../widgets/logo.dart';
+import '../widgets/slogan.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../Localization/Localization.dart';
-import '../colors/app_colors.dart';
-import '../widgets/customCard.dart';
+final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+    GlobalKey<RefreshIndicatorState>();
 
 class MainHomeScreen extends StatefulWidget {
   const MainHomeScreen({Key? key}) : super(key: key);
@@ -15,125 +21,118 @@ class MainHomeScreen extends StatefulWidget {
 }
 
 class _MainHomeScreenState extends State<MainHomeScreen> {
-  int currentIndex = 0;
-  List<String> tabs = [];
+  final HomeBloc homeBloc = HomeBloc();
+  @override
+  void initState() {
+    super.initState();
+    homeBloc.add(GetHomeEvent());
+    WidgetsBinding.instance!
+        .addPostFrameCallback((_) => _refreshIndicatorKey.currentState?.show());
+  }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      physics: const BouncingScrollPhysics(),
-      slivers: [
-        SliverAppBar(
-          elevation: 0.0,
-          expandedHeight: 320,
-          pinned: true,
-          backgroundColor: AppColors.backgroundColor,
-          flexibleSpace: FlexibleSpaceBar(
-            expandedTitleScale: 1.5,
-            titlePadding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
-            centerTitle: true,
-            title: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.09,
-              width: MediaQuery.of(context).size.width * 0.4,
-              child: Image.asset(
-                'assets/images/logommt.png',
-                fit: BoxFit.contain,
-              ),
+    return RefreshIndicator(
+      key: _refreshIndicatorKey,
+      onRefresh: () async {
+        //await Future.delayed(const Duration(milliseconds: 10));
+        homeBloc.add(GetHomeEvent());
+      },
+      child: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          SliverAppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+            expandedHeight: 200.h,
+            pinned: true,
+            flexibleSpace: const FlexibleSpaceBar(
+              expandedTitleScale: 1.5,
+              //titlePadding: EdgeInsets.only(top: 4.0, bottom: 4.0),
+              centerTitle: true,
+              title: Logo(imagePath: 'assets/images/logommt.png'),
             ),
-          ), //FlexibleSpaceBar
-        ),
-        MySliverList(
-          child: Category(),
-        )
-      ],
+          ),
+          SliverBody(
+            homeBloc: homeBloc,
+          ),
+        ],
+      ),
     );
   }
 }
 
-class MySliverList extends StatelessWidget {
-  final Widget child;
-  const MySliverList({
+class SliverBody extends StatelessWidget {
+  final HomeBloc homeBloc;
+
+  const SliverBody({
     Key? key,
-    required this.child,
+    required this.homeBloc,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SliverList(
-        delegate: SliverChildBuilderDelegate(
-      (context, index) {
+      delegate: SliverChildBuilderDelegate((context, index) {
         return Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 30.0),
-              child: Text(Localization.of(context).getTranslatedValue("NATURE"),
-                  style: GoogleFonts.tajawal(
-                    fontSize: 22,
-                    color: AppColors.darkGreen,
-                  )),
+            const Center(child: Slogan()),
+            BlocBuilder(
+              bloc: homeBloc,
+              builder: (context, state) {
+                if (state is GetHomeWaiting) {
+                  return const ShimmerCategory();
+                } else if (state is GetHomeError) {
+                  return PullToRefreesh(
+                    onTap: () {
+                      homeBloc.add(GetHomeEvent());
+                    },
+                  );
+                } else if (state is GetHomeSuccessfully) {
+                  return Column(
+                    children: [
+                      CustomCircularSlider(homeInfo: state.homeModel),
+                      Categories(
+                        homeModel: state.homeModel,
+                      ),
+                    ],
+                  );
+                }
+
+                return Container();
+              },
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 2.0, bottom: 4.0),
-              child: Text(
-                  Localization.of(context)
-                      .getTranslatedValue("isourinspiration"),
-                  style: GoogleFonts.tajawal(
-                    fontSize: 22,
-                    color: AppColors.darkGreen,
-                  )),
-            ),
-            child,
-            SizedBox(height: MediaQuery.of(context).size.height * 0.5),
           ],
         );
-      },
-      childCount: 1,
-    ));
+      }, childCount: 1),
+    );
   }
 }
 
-class Category extends StatelessWidget {
-  const Category({
+class Categories extends StatelessWidget {
+  List<Widget> getCategories(categories, size) {
+    List<Widget> gt = [];
+    for (var i = 0; i < categories.length; i++) {
+      gt.add(Category(categoryModel: categories[i]));
+    }
+    //to make some space from bottom
+    gt.add(Container(height: size.height / 5));
+
+    return gt;
+  }
+
+  final HomeModel? homeModel;
+
+  const Categories({
     Key? key,
+    required this.homeModel,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.09,
-            width: MediaQuery.of(context).size.width * 0.4,
-            child: Image.asset(
-              'assets/images/logommt.png',
-              fit: BoxFit.contain,
-            ),
-          ),
-        ),
-        CarouselSlider(
-            options: CarouselOptions(
-              autoPlay: true,
-              aspectRatio: 2.0,
-              enlargeCenterPage: true,
-            ),
-            items: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 20.0),
-                child: CustomCard(
-                  title: "MMT",
-                  subtitle: "news",
-                  height: MediaQuery.of(context).size.height * 0.15,
-                  gradientStartColor: AppColors.darkGreen,
-                  gradientEndColor: AppColors.lightGreen,
-                  onTap: () {},
-                ),
-              )
-            ]),
-      ],
+      children:
+          getCategories(homeModel!.categories!, MediaQuery.of(context).size),
     );
   }
 }

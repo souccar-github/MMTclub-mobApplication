@@ -1,9 +1,7 @@
 import 'dart:convert';
-import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 
 class Localization {
   final Locale locale;
@@ -41,7 +39,7 @@ class _LocalizationDelegate extends LocalizationsDelegate<Localization>{
   
     @override
     Future<Localization> load (Locale locale) async {
-      Localization localization = new Localization(locale);
+      Localization localization = Localization(locale);
       await localization.load();
       return localization;
     }
