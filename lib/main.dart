@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:expandable_bottom_bar/expandable_bottom_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -8,12 +9,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mmt_club/screens/login_screen.dart';
 import 'package:mmt_club/styles/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Localization/Localization.dart';
+import 'Localization/localization.dart';
 import 'screens/home_page.dart';
+//import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
   //setupLocator();
   WidgetsFlutterBinding.ensureInitialized();
+  //WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  //FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
@@ -33,7 +37,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale? _locale;
+  Locale _locale = Locale(Platform.localeName.substring(0, 2));
 
   int? indexFromNotification;
   void setLocale(Locale locale) {
@@ -50,6 +54,7 @@ class _MyAppState extends State<MyApp> {
     ]);
     checkIfLogin();
     configureFirebaseMessaging();
+    //initialization();
   }
 
   Future checkIfLogin() async {
@@ -105,6 +110,11 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void initialization() async {
+    await Future.delayed(const Duration(seconds: 3));
+    //FlutterNativeSplash.remove();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -113,11 +123,17 @@ class _MyAppState extends State<MyApp> {
       builder: (BuildContext context, Widget? child) => MaterialApp(
           title: 'MMT CLUB',
           theme: ThemeData(
-            fontFamily: "Gotham",
+            fontFamily: _locale.languageCode == 'ar' ? "Cairo" : "Gotham",
             colorScheme: ColorScheme.light(
               primary: AppColors.basicColor,
             ),
           ),
+          // : ThemeData(
+          //     fontFamily: "Gotham",
+          //     colorScheme: ColorScheme.light(
+          //       primary: AppColors.basicColor,
+          //     ),
+          //   ),
           debugShowCheckedModeBanner: false,
           localizationsDelegates: const [
             Localization.delegate,

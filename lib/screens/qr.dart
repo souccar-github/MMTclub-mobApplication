@@ -4,7 +4,7 @@ import 'package:expandable_bottom_bar/expandable_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:mmt_club/Localization/Localization.dart';
+import 'package:mmt_club/Localization/localization.dart';
 import 'package:mmt_club/bloc/qrCodeBloc/qrcode_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -13,9 +13,7 @@ import '../styles/app_colors.dart';
 import 'home_page.dart';
 
 class QRViewExample extends StatefulWidget {
-  const QRViewExample({
-    Key? key,
-  }) : super(key: key);
+  const QRViewExample({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _QRViewExampleState();
@@ -25,6 +23,7 @@ class _QRViewExampleState extends State<QRViewExample> {
   Barcode? result;
   QRViewController? controller;
   bool flashOn = false;
+  bool pop = true;
 
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
@@ -50,96 +49,86 @@ class _QRViewExampleState extends State<QRViewExample> {
     if (result != null) {
       controller!.pauseCamera();
       //log(result!.code.toString());
-      String code = result!.code ?? "";
-      if (code.isNotEmpty) {
+      String? code = result!.code;
+      if (code != null && code.isNotEmpty) {
+        //Navigator.pop(context);
+        // Navigator.pushReplacement(
+        //   context,
+        //   MaterialPageRoute(
+        //       builder: (context) => DefaultBottomBarController(child: HomePage())),
+        // );
+
         qrcodeBloc.add(SendQrcodeEvent(code));
+        //DefaultBottomBarController.of(context).close();
       }
+    }
+
+    final waitingAlert = Alert(
+      context: context,
+      type: AlertType.info,
+      buttons: [],
+      desc: Localization.of(context).getTranslatedValue("please_wait"),
+      content: const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+
+    final successAlert = Alert(
+      context: context,
+      type: AlertType.success,
+      desc: Localization.of(context)
+          .getTranslatedValue("your_qrcode_has_been_scanned"),
+      buttons: [
+        DialogButton(
+          child: Text(
+            Localization.of(context).getTranslatedValue("go_to_home"),
+            style: const TextStyle(color: Colors.white),
+          ),
+          onPressed: () {
+            result = null;
+            _finish();
+          },
+          width: 120,
+        )
+      ],
+    );
+    errorAlert(message) {
+      return Alert(
+        context: context,
+        type: AlertType.error,
+        desc: message,
+        buttons: [
+          DialogButton(
+            child: Text(
+              Localization.of(context).getTranslatedValue("go_to_home"),
+              style: const TextStyle(color: Colors.white),
+            ),
+            onPressed: () {
+              result = null;
+              _finish();
+            },
+            width: 120,
+          )
+        ],
+      );
     }
 
     return BlocListener(
       bloc: qrcodeBloc,
       listener: (context, state) {
-        if (state is ReadQrcodeSuccessfully) {
-          Alert(
-            context: context,
-            type: AlertType.success,
-
-            //title: Localization.of(context).getTranslatedValue("Notice"),
-            desc: Localization.of(context)
-                .getTranslatedValue("your_qrcode_has_been_scanned"),
-            buttons: [
-              DialogButton(
-                child: Text(
-                  Localization.of(context).getTranslatedValue("go_to_home"),
-                  style: const TextStyle(color: Colors.white),
-                ),
-                onPressed: () {
-                  result = null;
-                  Navigator.pop(context);
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            DefaultBottomBarController(child: HomePage())),
-                  );
-                },
-                width: 120,
-              )
-            ],
-          ).show();
+        if (state is ReadQrcodeWaiting) {
+          waitingAlert.show();
+        } else if (state is ReadQrcodeSuccessfully) {
+          waitingAlert.dismiss();
+          successAlert.show();
         } else if (state is ReadQrcodeError) {
+          waitingAlert.dismiss();
           if (state.error.code == 3) {
-            Alert(
-              context: context,
-              type: AlertType.info,
-              //title: Localization.of(context).getTranslatedValue("Notice"),
-              desc: state.error.message,
-              buttons: [
-                DialogButton(
-                  child: Text(
-                    Localization.of(context).getTranslatedValue("go_to_home"),
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {
-                    result = null;
-                    Navigator.pop(context);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              DefaultBottomBarController(child: HomePage())),
-                    );
-                  },
-                  width: 120,
-                )
-              ],
-            ).show();
+            errorAlert(Localization.of(context)
+                    .getTranslatedValue("already_taken"))
+                .show();
           } else {
-            Alert(
-              context: context,
-              type: AlertType.error,
-              //title: Localization.of(context).getTranslatedValue("Notice"),
-              desc: state.error.message,
-              buttons: [
-                DialogButton(
-                  child: Text(
-                    Localization.of(context).getTranslatedValue("go_to_home"),
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {
-                    result = null;
-                    Navigator.pop(context);
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              DefaultBottomBarController(child: HomePage())),
-                    );
-                  },
-                  width: 120,
-                )
-              ],
-            ).show();
+            errorAlert(state.error.message).show();
           }
         }
       },
@@ -215,6 +204,17 @@ class _QRViewExampleState extends State<QRViewExample> {
   @override
   void dispose() {
     controller?.dispose();
+    qrcodeBloc.close();
     super.dispose();
+  }
+
+  void _finish() {
+    //controller?.dispose();
+    Navigator.pop(context);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+          builder: (context) => DefaultBottomBarController(child: HomePage())),
+    );
   }
 }

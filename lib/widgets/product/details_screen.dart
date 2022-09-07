@@ -4,10 +4,10 @@ import 'package:mmt_club/Models/Project/product_details_model.dart';
 import 'components/body.dart';
 import 'components/custom_app_bar.dart';
 
-class DetailsScreen extends StatelessWidget {
+class ProductDetails extends StatelessWidget {
   static String routeName = "/details";
   final ProductDetailsModel productDetailsModel;
-  const DetailsScreen({Key? key, required this.productDetailsModel})
+  const ProductDetails({Key? key, required this.productDetailsModel})
       : super(key: key);
 
   @override

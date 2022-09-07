@@ -3,7 +3,6 @@ import 'package:mmt_club/widgets/shimmer_news.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'custom_circular_slider.dart';
 import 'dart:math';
 
 class ShimmerCategory extends StatelessWidget {
@@ -17,7 +16,7 @@ class ShimmerCategory extends StatelessWidget {
         child: Column(
           //mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            const CustomCircularSlider(),
+            //const CustomCircularSlider(),
 
             Padding(
               padding: EdgeInsets.fromLTRB(0.0, 4.h, 0.0, 4.h),

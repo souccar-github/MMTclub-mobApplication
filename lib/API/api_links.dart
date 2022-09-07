@@ -6,7 +6,7 @@ class ApiLinks {
 
   static String fcmNotification =
       "api/services/app/FcmNotification/GetMobileAll";
-
+  static String fcmNotificationRead = "api/services/app/FcmNotification/Read";
   static String getHomePage = "api/services/app/Home/Get";
 
   static String getCategories = "api/services/app/Category/GetAll";
@@ -28,4 +28,6 @@ class ApiLinks {
   static String complaint = "api/services/app/Complaint/Create";
   static String getGeneralSetting = "api/services/app/GeneralSetting/GetAll";
   static String readQrcode = "api/services/app/QrCode/ReadCode";
+
+  static String createGift = "api/services/app/UserGift/Create";
 }

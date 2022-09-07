@@ -8,12 +8,12 @@ part 'home_model.g.dart';
 class HomeModel {
   final String? fullName;
   final String? username;
-  final double? points;
+  final double? userPoints;
   final LevelModel? level;
   final List<CategoryModel>? categories;
 
-  HomeModel(
-      this.fullName, this.username, this.points, this.level, this.categories);
+  HomeModel(this.fullName, this.username, this.userPoints, this.level,
+      this.categories);
   factory HomeModel.fromJson(Map<String, dynamic> json) =>
       _$HomeModelFromJson(json);
   Map<String, dynamic> toJson() => _$HomeModelToJson(this);

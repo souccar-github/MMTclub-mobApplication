@@ -10,8 +10,8 @@ CategoryModel _$CategoryModelFromJson(Map<String, dynamic> json) =>
     CategoryModel(
       json['id'] as int,
       json['name'] as String,
-      json['description'] as String,
-      json['image'] as String,
+      json['description'] as String?,
+      json['image'] as String?,
       (json['point'] as num).toDouble(),
       json['parentCategoryId'] as int?,
       (json['news'] as List<dynamic>?)

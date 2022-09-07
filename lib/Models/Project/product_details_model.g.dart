@@ -9,11 +9,11 @@ part of 'product_details_model.dart';
 ProductDetailsModel _$ProductDetailsModelFromJson(Map<String, dynamic> json) =>
     ProductDetailsModel(
       json['name'] as String,
-      json['description'] as String,
+      json['description'] as String?,
       (json['point'] as num).toDouble(),
-      json['firstImage'] as String,
-      json['secondImage'] as String,
-      json['thirdImage'] as String,
+      json['firstImage'] as String?,
+      json['secondImage'] as String?,
+      json['thirdImage'] as String?,
       json['category'] == null
           ? null
           : CategoryModel.fromJson(json['category'] as Map<String, dynamic>),

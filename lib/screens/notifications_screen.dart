@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:mmt_club/Models/Project/notifications_model.dart';
+import 'package:mmt_club/constants.dart';
+import 'package:mmt_club/widgets/refresh.dart';
 
-import '../Localization/Localization.dart';
+import '../Localization/localization.dart';
 import '../bloc/notificationsBloc/notifications_bloc.dart';
 import '../styles/app_colors.dart';
+import '../widgets/notification/notification_item.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -22,56 +27,68 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    notificationsBloc.close();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        title: Text(
+          Localization.of(context).getTranslatedValue("notifactions"),
+          style: TextStyle(
+            fontSize: 17,
+            color: AppColors.textBlack,
+          ),
+        ),
+      ),
       body: BlocBuilder(
         bloc: notificationsBloc,
         builder: (context, state) {
           if (state is GetNotificationsWaiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Center(
+              child: SpinKitPouringHourGlassRefined(
+                color: AppColors.basicColor.withOpacity(0.7),
+              ),
             );
           } else if (state is GetNotificationsSuccessfully) {
             if (state.notifications.isEmpty) {
-              return Text(
-                Localization.of(context).getTranslatedValue("no_items_found"),
-                style: TextStyle(
-                  fontSize: 17,
-                  color: AppColors.basicColor,
+              return Center(
+                child: Text(
+                  Localization.of(context)
+                      .getTranslatedValue("no_notifactions"),
+                  style: CustomTextStyle.customButtonTextTheme(
+                      context, AppColors.basicColor),
                 ),
               );
             } else {
+              int length = state.notifications.length;
               return Padding(
                 padding: const EdgeInsets.all(7),
                 child: ListView.builder(
-                  reverse: true,
-                  itemCount: state.notifications.length,
+                  primary: false,
+                  itemCount: length,
                   itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        // Navigator.pushReplacement(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) {
-                        //     return;
-                        //   }),
-                        // );
-                      },
-                      child: ListTile(
-                        title: Text(
-                          state.notifications[index].title,
-                        ),
-                        subtitle: Text(
-                          state.notifications[index].body,
-                        ),
-                      ),
-                    );
+                    NotificationsModel notification =
+                        state.notifications[length - 1 - index];
+                    return NotificationItem(notification: notification);
                   },
                 ),
               );
             }
+          } else {
+            return Center(
+              child: TapToRefreesh(onTap: () {
+                notificationsBloc.add(GetNotificationsEvent());
+              }),
+            );
           }
-          return Container();
         },
       ),
     );

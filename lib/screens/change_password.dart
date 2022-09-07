@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../Localization/Localization.dart';
+import '../Localization/localization.dart';
 import '../styles/app_colors.dart';
 import '../widgets/custom_text.dart';
 
@@ -106,7 +106,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: CustomText(
+              child: CustomButton(
                 text: Localization.of(context).getTranslatedValue("send"),
                 onPressed: () {},
                 icon: FontAwesomeIcons.paperPlane,
@@ -117,6 +117,5 @@ class _ChangePasswordState extends State<ChangePassword> {
         ),
       ),
     );
-    ;
   }
 }

@@ -6,8 +6,8 @@ part 'category_model.g.dart';
 class CategoryModel {
   int id;
   String name;
-  String description;
-  String image;
+  String? description;
+  String? image;
   double point;
   int? parentCategoryId;
   List<CategoryNewsModel>? news;

@@ -4,11 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mmt_club/screens/contactus.dart';
 import 'package:mmt_club/screens/complaint.dart';
 import 'package:mmt_club/screens/product_list.dart';
-import 'package:mmt_club/screens/profile_screen.dart';
-
-import '../Localization/Localization.dart';
-import '../styles/app_colors.dart';
-import '../widgets/custom_text.dart';
+import '../Localization/localization.dart';
 import '../widgets/logo.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -53,13 +49,18 @@ class _MenuScreenState extends State<MenuScreen> {
                       },
                       child: ListTile(
                         title: Text(
-                          Localization.of(context)
-                              .getTranslatedValue("products"),
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.7),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                            Localization.of(context)
+                                .getTranslatedValue("products"),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1!
+                                .apply(fontWeightDelta: 3)
+
+                            // TextStyle(
+                            //   color: Colors.black.withOpacity(0.7),
+                            //   fontWeight: FontWeight.bold,
+                            // ),
+                            ),
                         trailing: Icon(
                           FontAwesomeIcons.list,
                           color: Colors.black.withOpacity(0.65),
@@ -76,13 +77,12 @@ class _MenuScreenState extends State<MenuScreen> {
                       },
                       child: ListTile(
                         title: Text(
-                          Localization.of(context)
-                              .getTranslatedValue("FeedBack"),
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.7),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                            Localization.of(context)
+                                .getTranslatedValue("FeedBack"),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1!
+                                .apply(fontWeightDelta: 3)),
                       ),
                     ),
                     InkWell(
@@ -95,13 +95,12 @@ class _MenuScreenState extends State<MenuScreen> {
                       },
                       child: ListTile(
                         title: Text(
-                          Localization.of(context)
-                              .getTranslatedValue("contactUs"),
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.7),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                            Localization.of(context)
+                                .getTranslatedValue("contactUs"),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1!
+                                .apply(fontWeightDelta: 3)),
                       ),
                     ),
                   ],

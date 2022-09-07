@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mmt_club/Models/Project/product_details_model.dart';
-import 'package:mmt_club/styles/app_colors.dart';
+import 'package:mmt_club/constants.dart';
 
 class ProductDescription extends StatelessWidget {
   const ProductDescription({
@@ -23,28 +23,20 @@ class ProductDescription extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 2.0),
-            child: Text(product.name,
-                style: TextStyle(
-                    color: AppColors.textBlack,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold)),
+            child: Text(
+              product.name,
+              style: CustomTextStyle.titeTextTheme(context),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(8.0, 2.0, 8.0, 10.0),
             child: Text(product.category!.name,
-                style: TextStyle(
-                    color: AppColors.basicColor,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold)),
+                style: CustomTextStyle.caption(context)),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(product.description,
-                maxLines: 3,
-                style: TextStyle(
-                  color: AppColors.textBlack,
-                  fontSize: 14,
-                )),
+            child: Text(product.description ?? "",
+                maxLines: 3, style: CustomTextStyle.decTextTheme(context)),
           ),
         ],
       ),

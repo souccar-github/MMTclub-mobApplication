@@ -10,13 +10,10 @@ ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) => ProfileModel(
       json['id'] as int,
       json['fullName'] as String,
       json['username'] as String,
-      (json['points'] as num).toDouble(),
+      (json['userPoints'] as num).toDouble(),
       json['level'] == null
           ? null
           : LevelModel.fromJson(json['level'] as Map<String, dynamic>),
-      (json['gifts'] as List<dynamic>?)
-          ?.map((e) => GiftsModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
     );
 
 Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
@@ -24,7 +21,6 @@ Map<String, dynamic> _$ProfileModelToJson(ProfileModel instance) =>
       'id': instance.id,
       'fullName': instance.fullName,
       'username': instance.username,
-      'points': instance.points,
+      'userPoints': instance.userPoints,
       'level': instance.level,
-      'gifts': instance.gifts,
     };

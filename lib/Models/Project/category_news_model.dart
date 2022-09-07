@@ -5,7 +5,7 @@ part 'category_news_model.g.dart';
 class CategoryNewsModel {
   int? id;
   String? name;
-  String description;
+  String? description;
   String? image;
 
   CategoryNewsModel(this.id, this.name, this.description, this.image);
