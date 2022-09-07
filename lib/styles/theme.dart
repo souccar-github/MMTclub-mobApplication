@@ -6,6 +6,7 @@ import 'package:mmt_club/styles/app_colors.dart';
 var loginTheme = LoginTheme(
   //headerMargin: 0,
   //logoWidth: 500,
+
   primaryColor: AppColors.backgroundColor,
   accentColor: Colors.white,
   // pageColorDark: AppColors.basicColor,
@@ -13,7 +14,7 @@ var loginTheme = LoginTheme(
   errorColor: Colors.red,
   titleStyle: const TextStyle(
     color: Colors.greenAccent,
-    fontFamily: 'Quicksand',
+    // fontFamily: 'Quicksand',
     letterSpacing: 4,
   ),
   bodyStyle: const TextStyle(

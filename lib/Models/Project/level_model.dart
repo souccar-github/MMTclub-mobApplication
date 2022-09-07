@@ -7,13 +7,14 @@ part 'level_model.g.dart';
 class LevelModel {
   int id;
   String name;
-  String description;
-  double point;
+  String? description;
+  double fromPoint;
+  double toPoint;
   String color;
   List<GiftsModel>? gifts;
 
-  LevelModel(
-      this.id, this.name, this.description, this.point, this.color, this.gifts);
+  LevelModel(this.id, this.name, this.description, this.fromPoint, this.toPoint,
+      this.color, this.gifts);
 
   factory LevelModel.fromJson(Map<String, dynamic> json) =>
       _$LevelModelFromJson(json);

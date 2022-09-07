@@ -11,7 +11,6 @@ import 'package:mmt_club/Models/Project/login_model.dart';
 import 'package:mmt_club/Models/Project/notifications_model.dart';
 import 'package:mmt_club/Models/Project/product_details_model.dart';
 import 'package:mmt_club/Models/Project/profile_model.dart';
-import 'package:mmt_club/bloc/notificationsBloc/notifications_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Models/Project/category_model.dart';
 import '../../Models/Project/general_settings_model.dart';
@@ -27,7 +26,7 @@ class Project {
 
     final prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
-    //log(token.toString());
+
     try {
       final response = await Statics.httpClient.get(
         Uri.parse(Statics.baseUrl + ApiLinks.getHomePage),
@@ -321,7 +320,8 @@ class Project {
     String error;
     final prefs = await SharedPreferences.getInstance();
     String? id = prefs.getString('id');
-
+    await prefs.remove('token');
+    await prefs.remove('id');
     try {
       final response = await Statics.httpClient.post(
         Uri.parse(Statics.baseUrl + ApiLinks.logout + "?id=$id"),
@@ -331,10 +331,6 @@ class Project {
       );
 
       if (response.statusCode == 200) {
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.remove('token');
-        await prefs.remove('id');
-
         return "succss";
       } else {
         error = (jsonDecode(response.body))["error"]['message'];
@@ -378,15 +374,16 @@ class Project {
     }
   }
 
-  Future<List<NotificationsModel>> getNotifications() async {
+  Future<List<NotificationsModel>> notifications() async {
     String error;
 
     final prefs = await SharedPreferences.getInstance();
-    final String? id = prefs.getString('id');
-    final String? token = prefs.getString('token');
+    String? id = prefs.getString('id');
+    String? token = prefs.getString('token');
+    //log(id.toString());
 
     try {
-      final response = await Statics.httpClient.post(
+      final response = await Statics.httpClient.get(
         Uri.parse(Statics.baseUrl + ApiLinks.fcmNotification + "?id=$id"),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
@@ -402,6 +399,38 @@ class Project {
         }
 
         return notifications;
+      } else {
+        error = (jsonDecode(response.body))["error"]['message'] as String;
+        return Future.error(error);
+      }
+    } on SocketException {
+      return Future.error("check your internet connection");
+    } on ClientException {
+      return Future.error("check your internet connection");
+    } catch (e) {
+      return Future.error(e.toString());
+    }
+  }
+
+  Future<String> setNotificationIsRead(int notificationId) async {
+    String error;
+
+    final prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+
+    try {
+      final response = await Statics.httpClient.post(
+        Uri.parse(Statics.baseUrl +
+            ApiLinks.fcmNotificationRead +
+            "?id=$notificationId"),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: ' Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return "success";
       } else {
         error = (jsonDecode(response.body))["error"]['message'] as String;
         return Future.error(error);
@@ -434,14 +463,14 @@ class Project {
         return "succss";
       } else {
         //error = (jsonDecode(response.body))["error"]['message']['details'];
-        return "error";
+        return Future.error("error");
       }
     } on SocketException {
-      return "check your internet connection";
+      return Future.error("check your internet connection");
     } on ClientException {
-      return "check your internet connection";
+      return Future.error("check your internet connection");
     } catch (e) {
-      return e.toString();
+      return Future.error(e.toString());
     }
   }
 
@@ -472,6 +501,38 @@ class Project {
       return "check your internet connection";
     } catch (e) {
       return e.toString();
+    }
+  }
+
+  Future<String> getYourGift(int giftId) async {
+    String error;
+    final prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+
+    try {
+      final response = await Statics.httpClient.post(
+        Uri.parse(Statics.baseUrl + ApiLinks.createGift),
+        headers: {
+          HttpHeaders.authorizationHeader: ' Bearer $token',
+          HttpHeaders.contentTypeHeader: 'application/json',
+        },
+        body: json.encode({
+          "giftId": giftId,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        return "success";
+      } else {
+        error = (jsonDecode(response.body))["error"]['message'] as String;
+        return Future.error(error);
+      }
+    } on SocketException {
+      return Future.error("check your internet connection");
+    } on ClientException {
+      return Future.error("check your internet connection");
+    } catch (e) {
+      return Future.error(e.toString());
     }
   }
 }

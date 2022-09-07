@@ -8,11 +8,11 @@ part of 'general_settings_model.dart';
 
 GeneralSettingModel _$GeneralSettingModelFromJson(Map<String, dynamic> json) =>
     GeneralSettingModel(
-      json['facebook'] as String,
-      json['instagram'] as String,
-      json['youTube'] as String,
-      json['telegram'] as String,
-      json['twitter'] as String,
+      json['facebook'] as String?,
+      json['instagram'] as String?,
+      json['youTube'] as String?,
+      json['telegram'] as String?,
+      json['twitter'] as String?,
     );
 
 Map<String, dynamic> _$GeneralSettingModelToJson(

@@ -5,7 +5,8 @@
     "newPassword":"New Password",
     "confirmPassword":"Confirm Password",
     "profile" : "Profile",
-
+    "Invalid_phone_number" : "Invalid phone number",
+    "login":"Login",
     "NATURE":"N A T U R E",
     "isourinspiration":"is our inspiration",
     "seeMore":"See More",
@@ -20,21 +21,34 @@
     "contactUs" : "Contact Us",
     "terms":"Terms",
     "FeedBack":"FeedBack and Complaints",
+    "title":"Title",
+    "body":"Add Review",
     "cancel":"Cancel",
     "send":"Send",
     "products":"Show Products",
     "gifts":"Gifts",
     "notifactions":"Notifactions",
+    "notifaction_details":"Notifaction Details",
     "allNews":"All News",
-    "thanks_for_compliment_reply":"thanks for compliment reply",
-    "try_again":"try again",
+    "thanks_for_compliment_reply":"Thanks for compliment reply",
+    "try_again":"Try again",
     "product_details":"Product Details",
+    "news_details":"News Details",
     "no_items_found":"No Items Found",
+    "no_notifactions":"There are no notifications",
     "your_level":"Your Level : ",
-    "pull":"Pull down to Refresh",
+    "refresh":"No Connection , Tap to Refresh",
     "Notice":"Notice",
     "your_qrcode_has_been_scanned":"Your Qrcode has been Scanned Successfully",
-    "go_to_home":"Go to Home"
+    "go_to_home":"Go to Home",
+    "check_your_connection" : "check your connection",
+    "gift_details":"Gift Details",
+    "Get_your_Gift":"Get your Gift",
+    "request_Gift":"Thank you! your request will be processed",
+    "sorry_there_is_no_gift_av":"Sorry! This gift can't be requested because you did not achieve the required level",
+    "please_wait":"please wait a moment",
+    "already_taken":"This QR Code has already been taken"
+
 
 
 

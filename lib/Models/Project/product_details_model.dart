@@ -5,11 +5,11 @@ part 'product_details_model.g.dart';
 @JsonSerializable()
 class ProductDetailsModel {
   String name;
-  String description;
+  String? description;
   double point;
-  String firstImage;
-  String secondImage;
-  String thirdImage;
+  String? firstImage;
+  String? secondImage;
+  String? thirdImage;
   CategoryModel? category;
   int categoryId;
   int id;

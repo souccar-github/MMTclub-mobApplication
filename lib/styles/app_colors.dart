@@ -31,5 +31,5 @@ abstract class AppColors {
 
   static Color success = Colors.green;
   static Color error = const Color.fromARGB(255, 241, 2, 2);
-  static Color warring = const Color.fromARGB(255, 231, 235, 21);
+  static Color warning = const Color.fromARGB(255, 231, 235, 21);
 }

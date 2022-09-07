@@ -2,16 +2,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:mmt_club/Models/Project/home_model.dart';
 import 'package:mmt_club/bloc/homeBloc/home_bloc.dart';
-import 'package:mmt_club/widgets/pull.dart';
+import 'package:mmt_club/widgets/refresh.dart';
 import '../widgets/category.dart';
 import '../widgets/custom_circular_slider.dart';
-import '../widgets/shimmer_category.dart';
+import '../widgets/hour_glass.dart';
 import '../widgets/logo.dart';
 import '../widgets/slogan.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-    GlobalKey<RefreshIndicatorState>();
 
 class MainHomeScreen extends StatefulWidget {
   const MainHomeScreen({Key? key}) : super(key: key);
@@ -22,12 +19,20 @@ class MainHomeScreen extends StatefulWidget {
 
 class _MainHomeScreenState extends State<MainHomeScreen> {
   final HomeBloc homeBloc = HomeBloc();
+  late GlobalKey<RefreshIndicatorState> _refreshIndicatorKey;
   @override
   void initState() {
     super.initState();
-    homeBloc.add(GetHomeEvent());
+    //homeBloc.add(GetHomeEvent());
+    _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
     WidgetsBinding.instance!
         .addPostFrameCallback((_) => _refreshIndicatorKey.currentState?.show());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    homeBloc.close();
   }
 
   @override
@@ -81,9 +86,9 @@ class SliverBody extends StatelessWidget {
               bloc: homeBloc,
               builder: (context, state) {
                 if (state is GetHomeWaiting) {
-                  return const ShimmerCategory();
+                  return const HourGlass();
                 } else if (state is GetHomeError) {
-                  return PullToRefreesh(
+                  return TapToRefreesh(
                     onTap: () {
                       homeBloc.add(GetHomeEvent());
                     },

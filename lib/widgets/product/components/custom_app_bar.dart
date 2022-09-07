@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mmt_club/constants.dart';
 import 'package:mmt_club/styles/app_colors.dart';
 
-import '../../../Localization/Localization.dart';
+import '../../../Localization/localization.dart';
 
 class CustomAppBar extends StatelessWidget {
   final double points;
@@ -35,10 +36,7 @@ class CustomAppBar extends StatelessWidget {
           const Spacer(),
           Text(
             Localization.of(context).getTranslatedValue("product_details"),
-            style: TextStyle(
-              fontSize: 17,
-              color: AppColors.textBlack,
-            ),
+            style: CustomTextStyle.appBarTextTheme(context),
           ),
           const Spacer(),
           Padding(

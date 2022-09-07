@@ -37,7 +37,7 @@ class _ProductImagesState extends State<ProductImages> {
             child: Hero(
               tag: widget.product.id.toString(),
               child: Image.network(
-                Statics.baseUrl + images[selectedImage],
+                Statics.baseUrl + images[selectedImage]!,
                 fit: BoxFit.contain,
               ),
             ),

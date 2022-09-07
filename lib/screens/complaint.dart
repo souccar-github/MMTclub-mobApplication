@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mmt_club/Models/Project/complaint_model.dart';
 import 'package:mmt_club/bloc/complaintBloc/complaint_bloc.dart';
+import 'package:mmt_club/constants.dart';
+import 'package:mmt_club/widgets/my_toast.dart';
 
-import '../Localization/Localization.dart';
+import '../Localization/localization.dart';
 import '../styles/app_colors.dart';
 import '../widgets/custom_text.dart';
 
@@ -32,9 +34,9 @@ class _ComplaintState extends State<Complaint> {
     super.dispose();
     titleController.dispose();
     bodyController.dispose();
+    complaintBloc.close();
   }
 
-  bool isSending = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,11 +46,7 @@ class _ComplaintState extends State<Complaint> {
         centerTitle: true,
         title: Text(
           Localization.of(context).getTranslatedValue("FeedBack"),
-          style: TextStyle(
-            fontSize: 17,
-            //fontWeight: FontWeight.bold,
-            color: AppColors.textBlack,
-          ),
+          style: CustomTextStyle.appBarTextTheme(context),
         ),
         leading: IconButton(
             onPressed: () {
@@ -66,37 +64,31 @@ class _ComplaintState extends State<Complaint> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                Localization.of(context).getTranslatedValue("FeedBack") + " :",
-                style: TextStyle(
-                  fontSize: 13.0.h,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+              // Text(
+              //   Localization.of(context).getTranslatedValue("FeedBack") + " :",
+              //   style: const TextStyle(
+              //     //fontSize: 13.0.h,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
               BlocListener(
                 bloc: complaintBloc,
                 listener: (context, state) {
-                  if (state is SendComplaintWaiting) {
-                  } else if (state is SendComplaintSuccessfully) {
-                    setState(() {
-                      isSending = false;
-                    });
-                    var snackBar = SnackBar(
-                      content: Text(Localization.of(context)
-                          .getTranslatedValue("thanks_for_compliment_reply")),
-                      backgroundColor: AppColors.success,
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  } else {
-                    setState(() {
-                      isSending = false;
-                    });
-                    var snackBar = SnackBar(
-                      content: Text(Localization.of(context)
-                          .getTranslatedValue("try_again")),
-                      backgroundColor: AppColors.error,
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  if (state is SendComplaintSuccessfully) {
+                    titleController.clear();
+                    bodyController.clear();
+
+                    MyToast.show(
+                        context: context,
+                        text: Localization.of(context)
+                            .getTranslatedValue("thanks_for_compliment_reply"),
+                        toastState: ToastState.SUCCESS);
+                  } else if (state is SendComplaintError) {
+                    MyToast.show(
+                        context: context,
+                        text: Localization.of(context)
+                            .getTranslatedValue("try_again"),
+                        toastState: ToastState.ERROR);
                   }
                 },
                 child: Padding(
@@ -111,7 +103,8 @@ class _ComplaintState extends State<Complaint> {
                           cursorHeight: 25,
                           cursorColor: AppColors.basicColor,
                           decoration: InputDecoration(
-                            labelText: "Title",
+                            hintText: Localization.of(context)
+                                .getTranslatedValue("title"),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(25.0)),
                           ),
@@ -123,7 +116,9 @@ class _ComplaintState extends State<Complaint> {
                           cursorHeight: 25,
                           cursorColor: AppColors.basicColor,
                           decoration: InputDecoration(
-                            //hintText: "Add Review",
+                            hintText: Localization.of(context)
+                                    .getTranslatedValue("body") +
+                                "....",
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(25.0)),
                           ),
@@ -135,25 +130,28 @@ class _ComplaintState extends State<Complaint> {
                   ),
                 ),
               ),
-              isSending
-                  ? const Center(
+              BlocBuilder(
+                bloc: complaintBloc,
+                builder: (context, state) {
+                  if (state is SendComplaintWaiting) {
+                    return const Center(
                       child: Padding(
                         padding: EdgeInsets.all(8.0),
                         child: CircularProgressIndicator(),
                       ),
-                    )
-                  : CustomText(
-                      text: Localization.of(context).getTranslatedValue("send"),
-                      onPressed: () {
-                        setState(() {
-                          isSending = true;
-                        });
-                        complaintBloc.add(SendComplaintEvent(ComplaintModel(
-                            titleController.text, bodyController.text)));
-                      },
-                      icon: FontAwesomeIcons.paperPlane,
-                      size: 20.h,
-                    )
+                    );
+                  }
+                  return CustomButton(
+                    text: Localization.of(context).getTranslatedValue("send"),
+                    onPressed: () {
+                      complaintBloc.add(SendComplaintEvent(ComplaintModel(
+                          titleController.text, bodyController.text)));
+                    },
+                    icon: FontAwesomeIcons.paperPlane,
+                    size: 20.h,
+                  );
+                },
+              )
             ],
           ),
         ),

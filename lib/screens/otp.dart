@@ -1,10 +1,13 @@
+import 'dart:developer';
+
 import 'package:expandable_bottom_bar/expandable_bottom_bar.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mmt_club/Localization/Localization.dart';
+import 'package:mmt_club/Localization/localization.dart';
 import 'package:mmt_club/bloc/authBloc/auth_bloc.dart';
+import 'package:mmt_club/screens/login_screen.dart';
 import 'package:mmt_club/styles/app_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'package:sms_otp_auto_verify/sms_otp_auto_verify.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +22,6 @@ class OTP extends StatefulWidget {
 }
 
 class _OTPState extends State<OTP> {
-  int? index;
   final int _otpCodeLength = 5;
   bool _isLoadingButton = false;
   bool _enableButton = false;
@@ -55,7 +57,7 @@ class _OTPState extends State<OTP> {
   /// get signature code
   _getSignatureCode() async {
     String? signature = await SmsVerification.getAppSignature();
-    print("signature $signature");
+    log("signature $signature");
   }
 
   /// listen sms
@@ -115,73 +117,81 @@ class _OTPState extends State<OTP> {
       bloc: authBloc,
       listener: (context, state) async {
         if (state is AuthenticateSuccessfully) {
-          Navigator.pop(context);
+          final prefs = await SharedPreferences.getInstance();
+          final String? token = prefs.getString('token');
+          if (token != null && token.isNotEmpty) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DefaultBottomBarController(
+                  child: HomePage(),
+                ),
+              ),
+            );
+          }
+        } else if (state is AuthenticateError) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(
-                builder: (context) => DefaultBottomBarController(
-                        child: HomePage(
-                      indexFromNotification: index,
-                    ))),
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
           );
-        } else if (state is AuthenticateError) {}
+        }
       },
       child: Scaffold(
         key: _scaffoldKey,
         backgroundColor: Colors.transparent,
         body: Center(
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            // mainAxisSize: MainAxisSize.max,
+            // mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              TextFieldPin(
-                  textController: textEditingController,
-                  autoFocus: true,
-                  codeLength: _otpCodeLength,
-                  alignment: MainAxisAlignment.center,
-                  defaultBoxSize: (MediaQuery.of(context).size.width / 10).w,
-                  margin: 2,
-                  selectedBoxSize: (MediaQuery.of(context).size.width / 10).w,
-                  textStyle: const TextStyle(
-                    fontSize: 18,
-                  ),
-                  defaultDecoration: _pinPutDecoration.copyWith(
-                      border: Border.all(
-                          color: AppColors.basicColor.withOpacity(0.6))),
-                  selectedDecoration: _pinPutDecoration,
-                  onChange: (code) {
-                    _onOtpCallBack(code, false);
-                  }),
-              Row(
-                //mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  BlocBuilder<AuthBloc, AuthState>(
-                    bloc: authBloc,
-                    builder: (context, state) {
-                      if (state is AuthenticateWaiting) {
-                        return const CircularProgressIndicator();
-                      } else {
-                        return TextButton(
-                          child: _setUpButtonChild(),
-                          onPressed: () async {
-                            authBloc.add(AuthenticateEvent(widget.phone));
-                          },
-                        );
-                      }
-                    },
-                  ),
-                  TextButton(
-                    onPressed: _onClickRetry,
-                    child: Text(
-                      Localization.of(context).getTranslatedValue("Retry"),
-                      style: TextStyle(
-                        color: AppColors.textBlack,
-                        textBaseline: TextBaseline.ideographic,
-                      ),
+              Expanded(
+                child: TextFieldPin(
+                    textController: textEditingController,
+                    autoFocus: true,
+                    codeLength: _otpCodeLength,
+                    alignment: MainAxisAlignment.center,
+                    defaultBoxSize: (MediaQuery.of(context).size.width / 10).w,
+                    margin: 2,
+                    selectedBoxSize: (MediaQuery.of(context).size.width / 10).w,
+                    textStyle: const TextStyle(
+                      fontSize: 18,
                     ),
-                  )
-                ],
+                    defaultDecoration: _pinPutDecoration.copyWith(
+                        border: Border.all(
+                            color: AppColors.basicColor.withOpacity(0.6))),
+                    selectedDecoration: _pinPutDecoration,
+                    onChange: (code) {
+                      _onOtpCallBack(code, false);
+                    }),
+              ),
+              BlocBuilder<AuthBloc, AuthState>(
+                bloc: authBloc,
+                builder: (context, state) {
+                  if (state is AuthenticateWaiting) {
+                    return const CircularProgressIndicator();
+                  } else {
+                    return Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          authBloc.add(AuthenticateEvent(widget.phone));
+                        },
+                        child: Text(Localization.of(context)
+                            .getTranslatedValue("Verify")),
+                      ),
+                    );
+                  }
+                },
+              ),
+              TextButton(
+                onPressed: _onClickRetry,
+                child: Text(
+                  Localization.of(context).getTranslatedValue("Retry"),
+                  style: TextStyle(
+                    color: AppColors.textBlack,
+                    textBaseline: TextBaseline.ideographic,
+                  ),
+                ),
               ),
             ],
           ),

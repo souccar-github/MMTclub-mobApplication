@@ -1,26 +1,28 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mmt_club/constants.dart';
 
 import '../styles/app_colors.dart';
 
-class CustomText extends StatelessWidget {
-  String? text;
-  final onPressed;
-  final icon;
+class CustomButton extends StatelessWidget {
+  final String? text;
+  final VoidCallback? onPressed;
+  final IconData? icon;
+  final Widget? child;
   final double? size;
-  final textColor;
-  final iconColor;
-  final background;
-  CustomText({
+  final Color? textColor;
+  final Color? iconColor;
+  final Color? background;
+  const CustomButton({
     Key? key,
-    this.text = null,
+    this.text,
     this.onPressed,
     this.icon,
-    this.size = null,
-    this.textColor = null,
-    this.background = null,
-    this.iconColor = null,
+    this.size,
+    this.textColor,
+    this.background,
+    this.iconColor,
+    this.child,
   }) : super(key: key);
 
   @override
@@ -28,7 +30,7 @@ class CustomText extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(4.w),
       child: NeumorphicButton(
-        onPressed: onPressed,
+        onPressed: onPressed ?? () {},
         style: NeumorphicStyle(
             color: background ?? AppColors.textGrey,
             shape: NeumorphicShape.concave,
@@ -40,18 +42,17 @@ class CustomText extends StatelessWidget {
             text != null
                 ? Text(
                     text!,
-                    style: TextStyle(
-                      color: textColor ?? Colors.black.withOpacity(0.5),
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: CustomTextStyle.customButtonTextTheme(
+                        context, textColor),
                   )
                 : Container(),
             SizedBox(width: 5.w),
-            Icon(
-              icon,
-              color: iconColor ?? Colors.black.withOpacity(0.65),
-              size: size ?? 10.h,
-            )
+            child ??
+                Icon(
+                  icon,
+                  color: iconColor ?? Colors.black.withOpacity(0.65),
+                  size: size ?? 10.h,
+                ),
           ],
         ),
       ),

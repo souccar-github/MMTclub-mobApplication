@@ -9,8 +9,9 @@ part of 'level_model.dart';
 LevelModel _$LevelModelFromJson(Map<String, dynamic> json) => LevelModel(
       json['id'] as int,
       json['name'] as String,
-      json['description'] as String,
-      (json['point'] as num).toDouble(),
+      json['description'] as String?,
+      (json['fromPoint'] as num).toDouble(),
+      (json['toPoint'] as num).toDouble(),
       json['color'] as String,
       (json['gifts'] as List<dynamic>?)
           ?.map((e) => GiftsModel.fromJson(e as Map<String, dynamic>))
@@ -22,7 +23,8 @@ Map<String, dynamic> _$LevelModelToJson(LevelModel instance) =>
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,
-      'point': instance.point,
+      'fromPoint': instance.fromPoint,
+      'toPoint': instance.toPoint,
       'color': instance.color,
       'gifts': instance.gifts,
     };

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,12 +6,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mmt_club/bloc/categoryBloc/category_bloc.dart';
 import 'package:mmt_club/bloc/export_bloc.dart';
 import 'package:mmt_club/bloc/productsBloc/products_bloc.dart';
+import 'package:mmt_club/widgets/refresh.dart';
 import 'package:mmt_club/widgets/shimmer_list.dart';
-import '../Localization/Localization.dart';
-import '../bloc/newsBloc/news_bloc.dart';
+import '../Localization/localization.dart';
+import '../constants.dart';
 import '../styles/app_colors.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/product/product_card.dart';
+import '../widgets/my_toast.dart';
 
 class ProductList extends StatefulWidget {
   static String routeName = "/ProductList";
@@ -34,6 +35,12 @@ class _ProductListState extends State<ProductList> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    productBloc.close();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -42,10 +49,7 @@ class _ProductListState extends State<ProductList> {
         centerTitle: true,
         title: Text(
           Localization.of(context).getTranslatedValue("products"),
-          style: TextStyle(
-            fontSize: 17,
-            color: AppColors.textBlack,
-          ),
+          style: CustomTextStyle.appBarTextTheme(context),
         ),
         leading: IconButton(
             onPressed: () {
@@ -56,9 +60,17 @@ class _ProductListState extends State<ProductList> {
               color: AppColors.textBlack,
             )),
       ),
-      body: BlocBuilder(
+      body: BlocConsumer(
         bloc: productBloc,
         buildWhen: (previous, current) => previous != current,
+        listener: (context, state) {
+          if (state is GetAllProductsError) {
+            MyToast.show(
+                context: context,
+                text: Localization.of(context).getTranslatedValue("try_again"),
+                toastState: ToastState.ERROR);
+          }
+        },
         builder: (context, state) {
           if (state is GetAllProductsWaiting) {
             return const ShimmerList();
@@ -67,31 +79,36 @@ class _ProductListState extends State<ProductList> {
               children: [
                 Container(
                   color: Colors.transparent,
-                  height: 50.h,
+                  height: 55.h,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      CustomText(
-                        size: 15.h,
-                        icon: !isSortingAtoZ
-                            ? FontAwesomeIcons.sortAlphaUp
-                            : FontAwesomeIcons.sortAlphaDown,
-                        onPressed: () {
-                          setState(() {
-                            isSortingAtoZ = !isSortingAtoZ;
-                          });
-                        },
-                        text: Localization.of(context)
-                            .getTranslatedValue("sorting"),
+                      Expanded(
+                        flex: 2,
+                        child: CustomButton(
+                          size: 15.h,
+                          icon: !isSortingAtoZ
+                              ? FontAwesomeIcons.sortAlphaUp
+                              : FontAwesomeIcons.sortAlphaDown,
+                          onPressed: () {
+                            setState(() {
+                              isSortingAtoZ = !isSortingAtoZ;
+                            });
+                          },
+                          text: Localization.of(context)
+                              .getTranslatedValue("sorting"),
+                        ),
                       ),
-                      CustomText(
-                        text: Localization.of(context)
-                            .getTranslatedValue("filtering"),
-                        onPressed: () async {
-                          CategoryBloc categoryBloc = CategoryBloc();
-                          categoryBloc.add(GetCategoryEvent());
-                          return buildFilteringDialog(context, categoryBloc);
-                        },
+                      Expanded(
+                        flex: 1,
+                        child: CustomButton(
+                          text: Localization.of(context)
+                              .getTranslatedValue("filtering"),
+                          onPressed: () async {
+                            CategoryBloc categoryBloc = CategoryBloc();
+                            categoryBloc.add(GetCategoryEvent());
+                            return buildFilteringDialog(context, categoryBloc);
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -123,7 +140,7 @@ class _ProductListState extends State<ProductList> {
                             } else {
                               data = List.from(data.reversed);
                             }
-                            return ProductCard(
+                            return ProductItem(
                               product: data[index],
                             );
                           },
@@ -132,14 +149,11 @@ class _ProductListState extends State<ProductList> {
               ],
             );
           } else if (state is GetAllProductsError) {
-            SnackBar(
-              content: Text(
-                state.error.toString(),
-                style: TextStyle(color: AppColors.textWhite),
-              ),
-              backgroundColor: AppColors.error,
+            return Center(
+              child: TapToRefreesh(onTap: () {
+                productBloc.add(const GetAllProductsEvent());
+              }),
             );
-            return const SizedBox.shrink();
           }
           return const SizedBox.shrink();
         },

@@ -10,7 +10,7 @@ CategoryNewsModel _$CategoryNewsModelFromJson(Map<String, dynamic> json) =>
     CategoryNewsModel(
       json['id'] as int?,
       json['name'] as String?,
-      json['description'] as String,
+      json['description'] as String?,
       json['image'] as String?,
     );
 

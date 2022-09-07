@@ -8,3 +8,9 @@ abstract class NotificationsEvent extends Equatable {
 }
 
 class GetNotificationsEvent extends NotificationsEvent {}
+
+class SetNotificationIsReadEvent extends NotificationsEvent {
+  final int notificationId;
+
+  const SetNotificationIsReadEvent(this.notificationId);
+}

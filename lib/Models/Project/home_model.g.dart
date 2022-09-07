@@ -9,7 +9,7 @@ part of 'home_model.dart';
 HomeModel _$HomeModelFromJson(Map<String, dynamic> json) => HomeModel(
       json['fullName'] as String?,
       json['username'] as String?,
-      (json['points'] as num?)?.toDouble(),
+      (json['userPoints'] as num?)?.toDouble(),
       json['level'] == null
           ? null
           : LevelModel.fromJson(json['level'] as Map<String, dynamic>),
@@ -21,7 +21,7 @@ HomeModel _$HomeModelFromJson(Map<String, dynamic> json) => HomeModel(
 Map<String, dynamic> _$HomeModelToJson(HomeModel instance) => <String, dynamic>{
       'fullName': instance.fullName,
       'username': instance.username,
-      'points': instance.points,
+      'userPoints': instance.userPoints,
       'level': instance.level,
       'categories': instance.categories,
     };

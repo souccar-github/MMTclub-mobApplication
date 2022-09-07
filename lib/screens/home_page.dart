@@ -19,9 +19,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
+  late BuildContext bottomBarControllerContext;
+  @override
+  void initState() {
+    super.initState();
+    bottomBarControllerContext = context;
+  }
+
   @override
   Widget build(BuildContext context) {
-    BuildContext bottomBarControllerContext = context;
     if (widget.indexFromNotification != null) {
       setState(() {
         currentIndex = widget.indexFromNotification!;
@@ -37,11 +43,11 @@ class _HomePageState extends State<HomePage> {
         child: FloatingActionButton.extended(
           label: AnimatedBuilder(
             animation: DefaultBottomBarController.of(context).state,
-            builder: (context, child) {
+            builder: (contextBar, child) {
               //getValue(context);
-              DefaultBottomBarController.of(context).addListener(() {
+              DefaultBottomBarController.of(contextBar).addListener(() {
                 setState(() {
-                  bottomBarControllerContext = context;
+                  bottomBarControllerContext = contextBar;
                 });
               });
               return Row(
@@ -49,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                   const Icon(Icons.qr_code),
                   const SizedBox(width: 4.0),
                   AnimatedBuilder(
-                    animation: DefaultBottomBarController.of(context).state,
+                    animation: DefaultBottomBarController.of(contextBar).state,
                     builder: (context, child) => Transform(
                       alignment: Alignment.center,
                       transform: Matrix4.diagonal3Values(
@@ -162,16 +168,21 @@ class _HomePageState extends State<HomePage> {
   Widget buildNavBottomItem(
       {required IconData icon, required int index, required bool isPressed}) {
     return Expanded(
-      child: GestureDetector(
+      child: InkWell(
         onTap: () {
           setState(() {
             currentIndex = index;
             widget.indexFromNotification = null;
           });
         },
-        child: Icon(
-          icon,
-          color: isPressed ? AppColors.selectedItem : AppColors.unSelectedItem,
+        child: SizedBox(
+          height: double.infinity,
+          width: double.infinity,
+          child: Icon(
+            icon,
+            color:
+                isPressed ? AppColors.selectedItem : AppColors.unSelectedItem,
+          ),
         ),
       ),
     );

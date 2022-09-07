@@ -22,3 +22,13 @@ class GetNotificationsSuccessfully extends NotificationsInitial {
 }
 
 class GetNotificationsWaiting extends NotificationsInitial {}
+
+class IsReadNotificationsError extends NotificationsInitial {
+  final String error;
+
+  IsReadNotificationsError(this.error);
+}
+
+class IsReadNotificationsSuccessfully extends NotificationsInitial {}
+
+class IsReadNotificationsWaiting extends NotificationsInitial {}

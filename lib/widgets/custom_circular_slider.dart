@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mmt_club/Models/Project/home_model.dart';
@@ -6,7 +5,7 @@ import 'package:mmt_club/Models/Project/level_model.dart';
 import 'package:mmt_club/Models/Project/profile_model.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
-import '../Localization/Localization.dart';
+import '../Localization/localization.dart';
 import '../styles/app_colors.dart';
 
 class CustomCircularSlider extends StatelessWidget {
@@ -30,9 +29,17 @@ class CustomCircularSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     String strProgressBarColor =
         homeInfo?.level?.color ?? profileInfo?.level?.color ?? "";
-    double pointBalance =
-        homeInfo?.level?.point ?? profileInfo?.level?.point ?? 0.0;
     LevelModel? level = homeInfo?.level ?? profileInfo?.level;
+
+    double pointBalance =
+        homeInfo?.userPoints ?? profileInfo?.userPoints ?? 10.0;
+
+    // double minPoints =
+    //     homeInfo?.level!.fromPoint ?? profileInfo?.level!.fromPoint ?? 0.0;
+
+    double maxPoints =
+        homeInfo?.level!.toPoint ?? profileInfo?.level!.toPoint ?? 100.0;
+
     String? phone = profileInfo?.username;
     Color progressBarColor = _getColorFromHex(strProgressBarColor);
     return Column(
@@ -41,22 +48,32 @@ class CustomCircularSlider extends StatelessWidget {
           padding: EdgeInsets.all(8.h),
           child: Text(
             Localization.of(context).getTranslatedValue("Points_Balance"),
-            style: TextStyle(
-              fontSize: 16.0.h,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(context).textTheme.labelLarge,
           ),
         ),
         SleekCircularSlider(
+          max: maxPoints,
+          initialValue: pointBalance,
           innerWidget: (percentage) {
-            return Padding(
-              padding: const EdgeInsets.all(40.0),
+            return Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(pointBalance.toString()),
-                  Image.asset(
-                    "assets/images/pcoins.png",
+                  Text(
+                    pointBalance.toString(),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
+                  Text(
+                    "point",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .apply(color: progressBarColor),
+                  ),
+                  // SizedBox(
+                  //     height: 50.w,
+                  //     width: 50.w,
+                  //     child: Image.asset("assets/images/pcoins.png")),
                 ],
               ),
             );
@@ -79,58 +96,33 @@ class CustomCircularSlider extends StatelessWidget {
               ),
             ),
           ),
-          initialValue: pointBalance,
-          min: 0,
-          max: 100,
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            level != null
-                ? Padding(
-                    padding: EdgeInsets.all(8.h),
-                    child: Text(
-                      Localization.of(context)
-                              .getTranslatedValue("your_level") +
-                          " " +
-                          level.name,
-                      style: TextStyle(
-                        fontSize: 16.0.h,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  )
-                : Container(),
-            phone != null
-                ? Padding(
-                    padding: EdgeInsets.all(8.h),
-                    child: Text(
-                      Localization.of(context)
-                              .getTranslatedValue("phone_number") +
-                          " : " +
-                          phone,
-                      style: TextStyle(
-                        fontSize: 16.0.h,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  )
-                : Container(),
+            if (level != null)
+              Padding(
+                padding: EdgeInsets.all(8.h),
+                child: Text(
+                  Localization.of(context).getTranslatedValue("your_level") +
+                      " " +
+                      level.name,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
+            if (phone != null)
+              Padding(
+                padding: EdgeInsets.all(8.h),
+                child: Text(
+                  Localization.of(context).getTranslatedValue("phone_number") +
+                      " : " +
+                      phone,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
           ],
         ),
       ],
     );
   }
 }
-
-// class CustomCircularSliderInfo {
-//   String? phone;
-//   LevelModel? level;
-//   String? pointBalance;
-//   CustomCircularSliderInfo(this.phone, this.level, this.pointBalance);
-
-//   static getInfoFromHome(HomeModel homeModel) {
-//     this. level = homeModel.level;
-    
-//   }
-// }

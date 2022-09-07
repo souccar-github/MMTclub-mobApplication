@@ -9,9 +9,9 @@ part of 'gifts_model.dart';
 GiftsModel _$GiftsModelFromJson(Map<String, dynamic> json) => GiftsModel(
       json['id'] as int,
       json['name'] as String,
-      json['description'] as String,
+      json['description'] as String?,
       json['image'] as String?,
-      json['levelId'] as int,
+      json['isActive'] as bool,
     );
 
 Map<String, dynamic> _$GiftsModelToJson(GiftsModel instance) =>
@@ -20,5 +20,5 @@ Map<String, dynamic> _$GiftsModelToJson(GiftsModel instance) =>
       'name': instance.name,
       'description': instance.description,
       'image': instance.image,
-      'levelId': instance.levelId,
+      'isActive': instance.isActive,
     };
