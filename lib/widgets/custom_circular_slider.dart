@@ -34,8 +34,8 @@ class CustomCircularSlider extends StatelessWidget {
     double pointBalance =
         homeInfo?.userPoints ?? profileInfo?.userPoints ?? 10.0;
 
-    // double minPoints =
-    //     homeInfo?.level!.fromPoint ?? profileInfo?.level!.fromPoint ?? 0.0;
+    double minPoints =
+        homeInfo?.level!.fromPoint ?? profileInfo?.level!.fromPoint ?? 0.0;
 
     double maxPoints =
         homeInfo?.level!.toPoint ?? profileInfo?.level!.toPoint ?? 100.0;
@@ -52,8 +52,9 @@ class CustomCircularSlider extends StatelessWidget {
           ),
         ),
         SleekCircularSlider(
-          max: maxPoints,
-          initialValue: pointBalance,
+          min: 0.0,
+          max: maxPoints - minPoints,
+          initialValue: pointBalance - minPoints,
           innerWidget: (percentage) {
             return Center(
               child: Column(

@@ -56,6 +56,7 @@ class Category extends StatelessWidget {
           MySlider(
             news: categoryModel.news!,
             isGift: false,
+            refreshKey: null,
           ),
       ],
     );

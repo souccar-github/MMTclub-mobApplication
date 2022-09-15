@@ -30,20 +30,26 @@ class NewsCard extends StatelessWidget {
         },
         child: Container(
           decoration: BoxDecoration(
-              color: AppColors.textBlack.withOpacity(0.05),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.textBlack.withOpacity(0.5),
+                  blurRadius: 10.0,
+                ),
+              ],
+              color: AppColors.textWhite,
               borderRadius: BorderRadius.circular(15.0)),
           child: Row(
             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               news.image != null
-                  ? Padding(
+                  ? Container(
+                      width: 88.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.0)),
                       padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: 88.w,
-                        child: AspectRatio(
-                          aspectRatio: 0.88,
-                          child: Image.network(Statics.baseUrl + news.image!),
-                        ),
+                      child: AspectRatio(
+                        aspectRatio: 0.88,
+                        child: Image.network(Statics.baseUrl + news.image!),
                       ),
                     )
                   : Container(),
@@ -52,16 +58,13 @@ class NewsCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      news.name ?? "",
-                      style: TextStyle(
-                          color: AppColors.textBlack.withOpacity(0.7),
-                          fontSize: 16),
+                      news.title ?? "",
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                     const SizedBox(height: 10),
                     Text(
                       news.description ?? "",
-                      style: TextStyle(
-                          color: AppColors.textBlack.withOpacity(0.5)),
+                      style: Theme.of(context).textTheme.caption,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),

@@ -7,11 +7,13 @@
     "profile" : "Profile",
     "Invalid_phone_number" : "Invalid phone number",
     "login":"Login",
+    
     "NATURE":"N A T U R E",
     "isourinspiration":"is our inspiration",
     "seeMore":"See More",
     "phone_number_ver" : "phone number verification",
     "Verify" : "Verify",
+    
     "Retry":"Retry",
     "Enter_the_code":"Enter the code sent to ",
     "Points_Balance":"Points Balance",

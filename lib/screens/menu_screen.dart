@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mmt_club/screens/contactus.dart';
 import 'package:mmt_club/screens/complaint.dart';
 import 'package:mmt_club/screens/product_list.dart';
 import '../Localization/localization.dart';
 import '../widgets/logo.dart';
+import 'contactus.dart';
 
-class MenuScreen extends StatefulWidget {
+class MenuScreen extends StatelessWidget {
   const MenuScreen({Key? key}) : super(key: key);
 
-  @override
-  State<MenuScreen> createState() => _MenuScreenState();
-}
-
-class _MenuScreenState extends State<MenuScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,77 +30,66 @@ class _MenuScreenState extends State<MenuScreen> {
                   title: Logo(imagePath: 'assets/images/logommt.png'),
                 ),
               ),
-              SliverFillRemaining(
-                child: ListView(
-                  physics: const BouncingScrollPhysics(),
+              SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ProductList()),
-                        );
-                      },
-                      child: ListTile(
-                        title: Text(
-                            Localization.of(context)
-                                .getTranslatedValue("products"),
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1!
-                                .apply(fontWeightDelta: 3)
-
-                            // TextStyle(
-                            //   color: Colors.black.withOpacity(0.7),
-                            //   fontWeight: FontWeight.bold,
-                            // ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 2.5,
+                      child: Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const ProductList()),
+                              );
+                            },
+                            child: ListTile(
+                              title: Text(
+                                  Localization.of(context)
+                                      .getTranslatedValue("products"),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .apply(fontWeightDelta: 3)),
+                              trailing: Icon(
+                                FontAwesomeIcons.list,
+                                color: Colors.black.withOpacity(0.65),
+                              ),
                             ),
-                        trailing: Icon(
-                          FontAwesomeIcons.list,
-                          color: Colors.black.withOpacity(0.65),
-                        ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Complaint()),
+                              );
+                            },
+                            child: ListTile(
+                              title: Text(
+                                  Localization.of(context)
+                                      .getTranslatedValue("FeedBack"),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1!
+                                      .apply(fontWeightDelta: 3)),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Complaint()),
-                        );
-                      },
-                      child: ListTile(
-                        title: Text(
-                            Localization.of(context)
-                                .getTranslatedValue("FeedBack"),
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1!
-                                .apply(fontWeightDelta: 3)),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ContactsUS()),
-                        );
-                      },
-                      child: ListTile(
-                        title: Text(
-                            Localization.of(context)
-                                .getTranslatedValue("contactUs"),
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle1!
-                                .apply(fontWeightDelta: 3)),
-                      ),
-                    ),
+                    //const ContactsUS(),
+                    const SizedBox(
+                      child: ContactsUS(),
+                      height: 125,
+                    )
                   ],
-                ),
-              )
+                );
+              }, childCount: 1))
             ],
           )),
     );

@@ -14,7 +14,9 @@ import '../custom_text.dart';
 
 class GiftDetailes extends StatelessWidget {
   final GiftsModel gift;
-  GiftDetailes({Key? key, required this.gift}) : super(key: key);
+  final GlobalKey<RefreshIndicatorState>? refreshKey;
+  GiftDetailes({Key? key, required this.gift, this.refreshKey})
+      : super(key: key);
   final GiftBloc giftBloc = GiftBloc();
 
   addEventGetYourGift(bool isActive, BuildContext context) {
@@ -50,6 +52,7 @@ class GiftDetailes extends StatelessWidget {
             )),
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,79 +70,78 @@ class GiftDetailes extends StatelessWidget {
                           ),
                         ),
                 ),
-                Positioned(
-                  right: 0.0,
-                  bottom: 0.0,
-                  child: BlocBuilder(
-                    bloc: giftBloc,
-                    builder: (context, state) {
-                      if (state is GetYourGiftWaiting) {
-                        return CustomButton(
-                          child: CircularProgressIndicator(
-                            color: AppColors.textBlack.withOpacity(0.7),
-                          ),
-                        );
-                      } else if (state is GetYourGiftSuccessfully) {
-                        MyToast.show(
-                            context: context,
+                if (gift.isActive)
+                  Positioned(
+                    right: 0.0,
+                    bottom: 0.0,
+                    child: BlocBuilder(
+                      bloc: giftBloc,
+                      builder: (context, state) {
+                        if (state is GetYourGiftWaiting) {
+                          return CustomButton(
+                            child: CircularProgressIndicator(
+                              color: AppColors.textBlack.withOpacity(0.7),
+                            ),
+                          );
+                        } else if (state is GetYourGiftSuccessfully) {
+                          MyToast.show(
+                              context: context,
+                              text: Localization.of(context)
+                                  .getTranslatedValue("request_Gift"),
+                              toastState: ToastState.SUCCESS);
+                          WidgetsBinding.instance!.addPostFrameCallback(
+                              (_) => refreshKey!.currentState?.show());
+                          Future.delayed(const Duration(seconds: 3), () {
+                            Navigator.pop(context);
+                          });
+
+                          return Container();
+                        } else if (state is GetYourGiftError) {
+                          MyToast.show(
+                              context: context,
+                              text: state.error,
+                              toastState: ToastState.ERROR);
+                          return CustomButton(
                             text: Localization.of(context)
-                                .getTranslatedValue("request_Gift"),
-                            toastState: ToastState.SUCCESS);
-                        return CustomButton(
-                          text: Localization.of(context)
-                              .getTranslatedValue("Get_your_Gift"),
-                          onPressed: () {
-                            addEventGetYourGift(gift.isActive, context);
-                          },
-                          icon: FontAwesomeIcons.cartPlus,
-                          size: 20.h,
-                        );
-                      } else if (state is GetYourGiftError) {
-                        MyToast.show(
-                            context: context,
-                            text: state.error,
-                            toastState: ToastState.ERROR);
-                        return CustomButton(
-                          text: Localization.of(context)
-                              .getTranslatedValue("Get_your_Gift"),
-                          onPressed: () {
-                            addEventGetYourGift(gift.isActive, context);
-                          },
-                          icon: FontAwesomeIcons.cartPlus,
-                          size: 20.h,
-                        );
-                      } else {
-                        return CustomButton(
-                          text: gift.isActive
-                              ? Localization.of(context)
-                                  .getTranslatedValue("Get_your_Gift")
-                              : "",
-                          onPressed: () {
-                            addEventGetYourGift(gift.isActive, context);
-                          },
-                          icon: gift.isActive
-                              ? FontAwesomeIcons.cartPlus
-                              : FontAwesomeIcons.lock,
-                          size: 20.h,
-                        );
-                      }
-                    },
+                                .getTranslatedValue("Get_your_Gift"),
+                            onPressed: () {
+                              addEventGetYourGift(gift.isActive, context);
+                            },
+                            icon: FontAwesomeIcons.cartPlus,
+                            size: 20.h,
+                          );
+                        } else {
+                          return CustomButton(
+                            text: gift.isActive
+                                ? Localization.of(context)
+                                    .getTranslatedValue("Get_your_Gift")
+                                : "",
+                            onPressed: () {
+                              addEventGetYourGift(gift.isActive, context);
+                            },
+                            icon: gift.isActive
+                                ? FontAwesomeIcons.cartPlus
+                                : FontAwesomeIcons.lock,
+                            size: 20.h,
+                          );
+                        }
+                      },
+                    ),
                   ),
-                ),
               ],
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 2.0),
+              padding: const EdgeInsets.fromLTRB(15.0, 40.0, 15.0, 4.0),
               child: Text(
                 gift.name,
-                style: CustomTextStyle.titeTextTheme(context),
+                style: Theme.of(context).textTheme.headline6,
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 4.0),
               child: Text(
                 gift.description ?? "",
-                style: CustomTextStyle.decTextTheme(context),
+                style: Theme.of(context).textTheme.bodySmall,
               ),
             ),
           ],

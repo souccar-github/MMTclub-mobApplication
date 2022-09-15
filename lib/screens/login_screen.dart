@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
@@ -15,11 +16,16 @@ class LoginScreen extends StatelessWidget {
       var connectivityResult = await (Connectivity().checkConnectivity());
       if (connectivityResult == ConnectivityResult.mobile ||
           connectivityResult == ConnectivityResult.wifi) {
-        //_verifyUser(data.name);
+        int min = 10000; //min and max values act as your 6 digit range
+        int max = 99999;
+        var randomizer = math.Random();
+        String code = (min + randomizer.nextInt(max - min)).toString();
+        // FirebaseSMSFunctions.sms(data.name, code);
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => VerifyScreen(phone: data.name)));
+                builder: (context) =>
+                    VerifyScreen(phone: data.name, code: code)));
         return null;
       }
 
@@ -38,6 +44,10 @@ class LoginScreen extends StatelessWidget {
       theme: loginTheme,
       userType: LoginUserType.phone,
       logo: 'assets/images/logommt.png',
+      messages: LoginMessages(
+        userHint: Localization.of(context).getTranslatedValue("phone_number"),
+        loginButton: Localization.of(context).getTranslatedValue("login"),
+      ),
       onLogin: _authUser,
       hideForgotPasswordButton: true,
       loginAfterSignUp: false,

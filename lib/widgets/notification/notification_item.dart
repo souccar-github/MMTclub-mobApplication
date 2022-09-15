@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mmt_club/Models/Project/notifications_model.dart';
 import 'package:mmt_club/bloc/notificationsBloc/notifications_bloc.dart';
+import 'package:mmt_club/styles/app_colors.dart';
 import 'package:mmt_club/widgets/news/news_details.dart';
 
 import 'notification_details.dart';
@@ -112,7 +113,13 @@ class _ItemState extends State<Item> {
       },
       child: Container(
         decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 245, 245, 245),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.textBlack.withOpacity(0.5),
+                blurRadius: 10.0,
+              ),
+            ],
+            color: AppColors.textWhite,
             borderRadius: BorderRadius.circular(15.0)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -122,16 +129,22 @@ class _ItemState extends State<Item> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.notification.title,
-                    style: Theme.of(context).textTheme.titleSmall,
+                  SizedBox(
+                    width: 200.h,
+                    child: Text(
+                      widget.notification.title,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
                   ),
                   const SizedBox(height: 10),
-                  Text(
-                    widget.notification.body,
-                    style: Theme.of(context).textTheme.subtitle1,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                  SizedBox(
+                    width: 200.h,
+                    child: Text(
+                      widget.notification.body,
+                      style: Theme.of(context).textTheme.caption,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),
@@ -140,9 +153,12 @@ class _ItemState extends State<Item> {
               width: 88.w,
               child: AspectRatio(
                 aspectRatio: 0.88,
-                child: Icon(widget.notification.isRead
-                    ? FontAwesomeIcons.bell
-                    : FontAwesomeIcons.solidBell),
+                child: Icon(
+                  widget.notification.isRead
+                      ? FontAwesomeIcons.bell
+                      : FontAwesomeIcons.solidBell,
+                  color: Colors.amber,
+                ),
               ),
             ),
           ],

@@ -8,10 +8,10 @@ class GeneralSettingModel {
   String? instagram;
   String? youTube;
   String? telegram;
-  String? twitter;
+  String? mobilePhone;
 
-  GeneralSettingModel(
-      this.facebook, this.instagram, this.youTube, this.telegram, this.twitter);
+  GeneralSettingModel(this.facebook, this.instagram, this.youTube,
+      this.telegram, this.mobilePhone);
 
   factory GeneralSettingModel.fromJson(Map<String, dynamic> json) =>
       _$GeneralSettingModelFromJson(json);

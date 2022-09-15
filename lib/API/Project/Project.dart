@@ -511,14 +511,11 @@ class Project {
 
     try {
       final response = await Statics.httpClient.post(
-        Uri.parse(Statics.baseUrl + ApiLinks.createGift),
+        Uri.parse(Statics.baseUrl + ApiLinks.createGift + "?id=$giftId"),
         headers: {
           HttpHeaders.authorizationHeader: ' Bearer $token',
           HttpHeaders.contentTypeHeader: 'application/json',
         },
-        body: json.encode({
-          "giftId": giftId,
-        }),
       );
 
       if (response.statusCode == 200) {

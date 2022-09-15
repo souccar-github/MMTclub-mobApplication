@@ -10,6 +10,7 @@ import '../styles/app_colors.dart';
 import 'main_home_screen.dart';
 import 'qr.dart';
 
+// ignore: must_be_immutable
 class HomePage extends StatefulWidget {
   int? indexFromNotification;
   HomePage({Key? key, this.indexFromNotification}) : super(key: key);
@@ -91,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                     padding: EdgeInsets.fromLTRB(2.0, 30.0, 2.0, 0.0),
                     child: QRViewExample(),
                   )
-                : Container(color: AppColors.expandedBackColor),
+                : Container(),
         bottomAppBarBody: Card(
           elevation: 10.0,
           margin: EdgeInsets.zero,

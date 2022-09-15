@@ -81,10 +81,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       );
                     }
                   },
-                  child: IconButton(
-                    icon: Icon(
-                      FontAwesomeIcons.signOutAlt,
-                      color: AppColors.basicColor,
+                  child: TextButton(
+                    child: Row(
+                      children: [
+                        Text(Localization.of(context)
+                            .getTranslatedValue("signOut")),
+                        const SizedBox(
+                          width: 5.0,
+                        ),
+                        Icon(
+                          FontAwesomeIcons.signOutAlt,
+                          color: AppColors.basicColor,
+                        ),
+                      ],
                     ),
                     onPressed: () {
                       logoutBloc.add(Logout());
@@ -130,9 +139,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           if (state.profileModel.level != null &&
                               state.profileModel.level!.gifts != null)
                             MySlider(
-                              gifts: state.profileModel.level!.gifts!,
-                              isGift: true,
-                            ),
+                                gifts: state.profileModel.level!.gifts!,
+                                isGift: true,
+                                refreshKey: _refreshIndicatorPofileKey),
 
                           //to make some space from bottom
                           Container(

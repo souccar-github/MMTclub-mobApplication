@@ -9,7 +9,7 @@ part of 'category_news_model.dart';
 CategoryNewsModel _$CategoryNewsModelFromJson(Map<String, dynamic> json) =>
     CategoryNewsModel(
       json['id'] as int?,
-      json['name'] as String?,
+      json['title'] as String?,
       json['description'] as String?,
       json['image'] as String?,
     );
@@ -17,7 +17,7 @@ CategoryNewsModel _$CategoryNewsModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$CategoryNewsModelToJson(CategoryNewsModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
+      'title': instance.title,
       'description': instance.description,
       'image': instance.image,
     };
