@@ -96,7 +96,8 @@ class _QRViewExampleState extends State<QRViewExample> {
       return Alert(
         context: context,
         type: AlertType.error,
-        desc: message,
+        desc: Localization.of(context)
+            .getTranslatedValue("check_your_connection"),
         buttons: [
           DialogButton(
             child: Text(
@@ -128,7 +129,9 @@ class _QRViewExampleState extends State<QRViewExample> {
                     .getTranslatedValue("already_taken"))
                 .show();
           } else {
-            errorAlert(state.error.message).show();
+            errorAlert(Localization.of(context)
+                    .getTranslatedValue("check_your_connection"))
+                .show();
           }
         }
       },

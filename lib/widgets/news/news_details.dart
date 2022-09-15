@@ -77,9 +77,8 @@ class Details extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return ListView(
+      physics: const BouncingScrollPhysics(),
       children: [
         Container(
           child: news.image == null
@@ -97,16 +96,18 @@ class Details extends StatelessWidget {
                 ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 2.0),
+          padding: const EdgeInsets.fromLTRB(15.0, 40.0, 15.0, 4.0),
           child: Text(
-            news.name ?? "",
-            style: Theme.of(context).textTheme.headline5,
+            news.title ?? "",
+            style: Theme.of(context).textTheme.headline6,
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(news.description ?? "",
-              style: Theme.of(context).textTheme.bodySmall),
+          padding: const EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 4.0),
+          child: Text(
+            news.description ?? "",
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
         ),
       ],
     );

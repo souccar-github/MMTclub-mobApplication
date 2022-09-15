@@ -13,9 +13,15 @@ import 'shimmer_news.dart';
 
 class MySlider extends StatefulWidget {
   final List<GiftsModel>? gifts;
+  final GlobalKey<RefreshIndicatorState>? refreshKey;
   final List<CategoryNewsModel>? news;
   final bool isGift;
-  const MySlider({Key? key, this.gifts, this.news, required this.isGift})
+  const MySlider(
+      {Key? key,
+      this.gifts,
+      this.news,
+      required this.isGift,
+      required this.refreshKey})
       : super(key: key);
 
   @override
@@ -29,29 +35,51 @@ class _MySliderState extends State<MySlider> {
     List<GiftsModel>? gifts = widget.gifts;
     List<CategoryNewsModel>? news = widget.news;
     final pages = widget.isGift
-        ? List.generate(
-            gifts!.length,
-            (index) => Padding(
-                  padding:
-                      const EdgeInsets.only(right: 8.0, left: 8.0, bottom: 8.0),
-                  child: gifts[index].image != null
-                      ? Neum(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        GiftDetailes(gift: gifts[index])));
-                          },
-                          child: SizedBox(
+        ? List.generate(gifts!.length, (index) {
+            return Padding(
+              padding:
+                  const EdgeInsets.only(right: 8.0, left: 8.0, bottom: 8.0),
+              child: gifts[index].image != null
+                  ? Neum(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => GiftDetailes(
+                                      gift: gifts[index],
+                                      refreshKey: widget.refreshKey,
+                                    )));
+                      },
+                      child: Stack(
+                        children: [
+                          SizedBox(
                             width: MediaQuery.of(context).size.width,
                             child: Image.network(
                               Statics.baseUrl + gifts[index].image!,
                             ),
                           ),
-                        )
-                      : const ShimmerNews(),
-                ))
+                          if (!gifts[index].isActive)
+                            Positioned(
+                                child: Center(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  color: AppColors.textBlack.withOpacity(0.5),
+                                ),
+                                height: 50.h,
+                                width: 50.h,
+                                child: Icon(
+                                  Icons.lock,
+                                  color: AppColors.textWhite,
+                                ),
+                              ),
+                            ))
+                        ],
+                      ),
+                    )
+                  : const ShimmerNews(),
+            );
+          })
         : List.generate(
             news!.length,
             (index) => Padding(
@@ -84,25 +112,26 @@ class _MySliderState extends State<MySlider> {
           height: 200.h,
           width: MediaQuery.of(context).size.width,
           child: PageView.builder(
+            physics: const BouncingScrollPhysics(),
             controller: controller,
-
-            // itemCount: pages.length,
+            itemCount: pages.length,
             itemBuilder: (_, index) {
-              return pages[index % pages.length];
+              return pages[index];
             },
           ),
         ),
-        SmoothPageIndicator(
-          controller: controller,
-          count: pages.length,
-          effect: WormEffect(
-            dotHeight: 5.h,
-            dotWidth: 13.w,
-            type: WormType.thin,
-            activeDotColor: AppColors.basicColor,
-            // strokeWidth: 5,
+        if (pages.isNotEmpty)
+          SmoothPageIndicator(
+            controller: controller,
+            count: pages.length,
+            effect: WormEffect(
+              dotHeight: 5.h,
+              dotWidth: 13.w,
+              type: WormType.thin,
+              activeDotColor: AppColors.basicColor,
+              // strokeWidth: 5,
+            ),
           ),
-        ),
       ],
     );
   }

@@ -56,6 +56,8 @@ dependencies:
   connectivity_plus: ^2.3.6+1
   fluttertoast: ^8.0.9
   flutter_spinkit: ^5.1.0
+  flutter_speed_dial: ^6.0.0
+  cloud_functions: ^3.3.7
   
 dev_dependencies:
   flutter_test:
@@ -94,8 +96,12 @@ flutter:
     - family: Cairo
       fonts:
         - asset: assets/fonts/cairo/Cairo-Medium.ttf
+          weight: 500
         - asset: assets/fonts/cairo/Cairo-Regular.ttf
+          weight: 300
         - asset: assets/fonts/cairo/Cairo-Bold.ttf
+          weight: 700
+
 
     - family: Gotham
       fonts:

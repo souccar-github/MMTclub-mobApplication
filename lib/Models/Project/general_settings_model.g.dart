@@ -12,7 +12,7 @@ GeneralSettingModel _$GeneralSettingModelFromJson(Map<String, dynamic> json) =>
       json['instagram'] as String?,
       json['youTube'] as String?,
       json['telegram'] as String?,
-      json['twitter'] as String?,
+      json['mobilePhone'] as String?,
     );
 
 Map<String, dynamic> _$GeneralSettingModelToJson(
@@ -22,5 +22,5 @@ Map<String, dynamic> _$GeneralSettingModelToJson(
       'instagram': instance.instagram,
       'youTube': instance.youTube,
       'telegram': instance.telegram,
-      'twitter': instance.twitter,
+      'mobilePhone': instance.mobilePhone,
     };

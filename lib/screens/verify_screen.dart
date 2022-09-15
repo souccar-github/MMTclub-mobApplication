@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mmt_club/widgets/custom_text.dart';
-
 import '../Localization/localization.dart';
 import 'login_screen.dart';
 import 'otp.dart';
 
 class VerifyScreen extends StatelessWidget {
   final String phone;
+  final String code;
   const VerifyScreen({
     Key? key,
     required this.phone,
+    required this.code,
   }) : super(key: key);
 
   @override
@@ -72,7 +73,7 @@ class VerifyScreen extends StatelessWidget {
                         color: Colors.black,
                       )),
                   Padding(
-                    padding: EdgeInsets.only(top: 10.h),
+                    padding: EdgeInsets.only(top: 10.h, bottom: 4.0),
                     child: Wrap(
                       children: [
                         Text(
@@ -99,7 +100,10 @@ class VerifyScreen extends StatelessWidget {
                     child: SizedBox(
                         height: (MediaQuery.of(context).size.height / 5).h,
                         width: MediaQuery.of(context).size.width,
-                        child: OTP(phone: phone)),
+                        child: OTP(
+                          phone: phone,
+                          code: code,
+                        )),
                   ),
                   CustomButton(
                     onPressed: () {

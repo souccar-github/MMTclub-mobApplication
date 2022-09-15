@@ -8,7 +8,8 @@ class CustomTextStyle {
         );
   }
 
-  static TextStyle customButtonTextTheme(BuildContext context, textColor) {
+  static TextStyle customButtonTextTheme(
+      BuildContext context, Color? textColor) {
     return Theme.of(context).textTheme.bodySmall!.copyWith(
         fontWeight: FontWeight.bold,
         color: textColor ?? Colors.black.withOpacity(0.5));
