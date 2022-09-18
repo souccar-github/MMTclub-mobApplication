@@ -65,6 +65,11 @@ class _OTPState extends State<OTP> {
       bloc: authBloc,
       listener: (context, state) async {
         if (state is AuthenticateSuccessfully) {
+          MyToast.show(
+            context: context,
+            text: "Verification OTP Code $_otpCode Success",
+            toastState: ToastState.SUCCESS,
+          );
           final prefs = await SharedPreferences.getInstance();
           final String? token = prefs.getString('token');
           bool navToHome = token != null && token.isNotEmpty;
@@ -122,11 +127,6 @@ class _OTPState extends State<OTP> {
                       if (_otpCode!.length < _otpCodeLength) {
                       } else if (widget.code != _otpCode) {
                         authBloc.add(AuthenticateEvent(widget.phone));
-                        MyToast.show(
-                          context: context,
-                          text: "Verification OTP Code $_otpCode Success",
-                          toastState: ToastState.SUCCESS,
-                        );
                       } else {
                         MyToast.show(
                           context: context,
