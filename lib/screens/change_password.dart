@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../Localization/localization.dart';
 import '../styles/app_colors.dart';
-import '../widgets/custom_text.dart';
+import '../widgets/custom_button.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({Key? key}) : super(key: key);

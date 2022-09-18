@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mmt_club/Models/Project/category_news_model.dart';
-import 'package:mmt_club/constants.dart';
+import 'package:mmt_club/styles/app_text.dart';
 
 import '../../API/statics.dart';
 import '../../Localization/localization.dart';
@@ -36,7 +36,7 @@ class _NewsDetailsState extends State<NewsDetails> {
         centerTitle: true,
         title: Text(
           Localization.of(context).getTranslatedValue("news_details"),
-          style: CustomTextStyle.appBarTextTheme(context),
+          style: AppTextStyle.appBarTextTheme(context),
         ),
         leading: IconButton(
             onPressed: () {

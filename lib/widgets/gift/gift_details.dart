@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mmt_club/bloc/giftBloc/gift_bloc.dart';
-import 'package:mmt_club/constants.dart';
+import 'package:mmt_club/styles/app_text.dart';
 import 'package:mmt_club/widgets/my_toast.dart';
 
 import '../../API/statics.dart';
 import '../../Localization/localization.dart';
 import '../../Models/Project/gifts_model.dart';
 import '../../styles/app_colors.dart';
-import '../custom_text.dart';
+import '../custom_button.dart';
 
 class GiftDetailes extends StatelessWidget {
   final GiftsModel gift;
@@ -40,7 +40,7 @@ class GiftDetailes extends StatelessWidget {
         centerTitle: true,
         title: Text(
           Localization.of(context).getTranslatedValue("gift_details"),
-          style: CustomTextStyle.appBarTextTheme(context),
+          style: AppTextStyle.appBarTextTheme(context),
         ),
         leading: IconButton(
             onPressed: () {

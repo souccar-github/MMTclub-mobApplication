@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mmt_club/API/statics.dart';
-import 'package:mmt_club/constants.dart';
+import 'package:mmt_club/styles/app_text.dart';
 import 'package:mmt_club/styles/app_colors.dart';
 import '../../Models/Project/product_details_model.dart';
 import 'details_screen.dart';
@@ -66,7 +66,7 @@ class ProductItem extends StatelessWidget {
                 children: [
                   Text(
                     product.name,
-                    style: CustomTextStyle.itemListTextTheme(context),
+                    style: AppTextStyle.itemListTextTheme(context),
                     maxLines: 2,
                   ),
                   const SizedBox(height: 10),

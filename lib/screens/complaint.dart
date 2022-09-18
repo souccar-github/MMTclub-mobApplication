@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mmt_club/Models/Project/complaint_model.dart';
 import 'package:mmt_club/bloc/complaintBloc/complaint_bloc.dart';
-import 'package:mmt_club/constants.dart';
+import 'package:mmt_club/styles/app_text.dart';
 import 'package:mmt_club/widgets/my_toast.dart';
 
 import '../Localization/localization.dart';
 import '../styles/app_colors.dart';
-import '../widgets/custom_text.dart';
+import '../widgets/custom_button.dart';
 
 class Complaint extends StatefulWidget {
   const Complaint({Key? key}) : super(key: key);
@@ -46,7 +46,7 @@ class _ComplaintState extends State<Complaint> {
         centerTitle: true,
         title: Text(
           Localization.of(context).getTranslatedValue("FeedBack"),
-          style: CustomTextStyle.appBarTextTheme(context),
+          style: AppTextStyle.appBarTextTheme(context),
         ),
         leading: IconButton(
             onPressed: () {

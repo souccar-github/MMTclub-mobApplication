@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
       });
     }
     return Scaffold(
-      backgroundColor: Colors.white,
+      //backgroundColor: Colors.white,
       extendBody: true,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: GestureDetector(

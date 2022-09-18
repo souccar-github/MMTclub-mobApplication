@@ -5,7 +5,7 @@ import 'package:mmt_club/API/statics.dart';
 import 'package:mmt_club/Localization/localization.dart';
 import '../Models/Project/category_model.dart';
 import 'my_slider.dart';
-import 'custom_text.dart';
+import 'custom_button.dart';
 import 'news/all_news_screen.dart';
 
 class Category extends StatelessWidget {
