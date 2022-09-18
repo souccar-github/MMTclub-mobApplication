@@ -59,7 +59,7 @@ class VerifyScreen extends StatelessWidget {
                   style: AppTextStyle.labelText1Theme(context),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 35.h, bottom: 8.0),
+                  padding: EdgeInsets.only(top: 25.h, bottom: 6.0),
                   child: Wrap(
                     children: [
                       Text(
