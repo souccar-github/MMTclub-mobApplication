@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mmt_club/Models/Project/notifications_model.dart';
-import 'package:mmt_club/constants.dart';
+import 'package:mmt_club/styles/app_text.dart';
 import 'package:mmt_club/widgets/refresh.dart';
 
 import '../Localization/localization.dart';
@@ -63,7 +63,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 child: Text(
                   Localization.of(context)
                       .getTranslatedValue("no_notifactions"),
-                  style: CustomTextStyle.customButtonTextTheme(
+                  style: AppTextStyle.customButtonTextTheme(
                       context, AppColors.basicColor),
                 ),
               );

@@ -1,6 +1,6 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mmt_club/constants.dart';
+import 'package:mmt_club/styles/app_text.dart';
 
 import '../styles/app_colors.dart';
 
@@ -42,8 +42,8 @@ class CustomButton extends StatelessWidget {
             text != null
                 ? Text(
                     text!,
-                    style: CustomTextStyle.customButtonTextTheme(
-                        context, textColor),
+                    style:
+                        AppTextStyle.customButtonTextTheme(context, textColor),
                   )
                 : Container(),
             SizedBox(width: 5.w),

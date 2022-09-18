@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mmt_club/constants.dart';
+import 'package:mmt_club/styles/app_text.dart';
 import 'package:mmt_club/styles/app_colors.dart';
 
 import '../../../Localization/localization.dart';
@@ -36,7 +36,7 @@ class CustomAppBar extends StatelessWidget {
           const Spacer(),
           Text(
             Localization.of(context).getTranslatedValue("product_details"),
-            style: CustomTextStyle.appBarTextTheme(context),
+            style: AppTextStyle.appBarTextTheme(context),
           ),
           const Spacer(),
           Padding(

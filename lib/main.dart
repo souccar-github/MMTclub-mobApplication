@@ -11,7 +11,6 @@ import 'package:mmt_club/styles/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Localization/localization.dart';
 import 'screens/home_page.dart';
-//import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
   //setupLocator();
@@ -121,50 +120,51 @@ class _MyAppState extends State<MyApp> {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (BuildContext context, Widget? child) => MaterialApp(
-          title: 'MMT CLUB',
-          theme: ThemeData(
-            fontFamily: _locale.languageCode == 'ar' ? "Cairo" : "Gotham",
-            colorScheme: ColorScheme.light(
-              primary: AppColors.basicColor,
-            ),
+        title: 'MMT CLUB',
+        theme: ThemeData(
+          fontFamily: _locale.languageCode == 'ar' ? "Cairo" : "Gotham",
+          colorScheme: ColorScheme.light(
+            primary: AppColors.basicColor,
           ),
-          // : ThemeData(
-          //     fontFamily: "Gotham",
-          //     colorScheme: ColorScheme.light(
-          //       primary: AppColors.basicColor,
-          //     ),
-          //   ),
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: const [
-            Localization.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          localeResolutionCallback: (deviceLocale, supportedLoacales) {
-            for (var locale in supportedLoacales) {
-              if (locale.languageCode == deviceLocale?.languageCode) {
-                return deviceLocale;
-              }
+        ),
+        // : ThemeData(
+        //     fontFamily: "Gotham",
+        //     colorScheme: ColorScheme.light(
+        //       primary: AppColors.basicColor,
+        //     ),
+        //   ),
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: const [
+          Localization.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        localeResolutionCallback: (deviceLocale, supportedLoacales) {
+          for (var locale in supportedLoacales) {
+            if (locale.languageCode == deviceLocale?.languageCode) {
+              return deviceLocale;
             }
-            return supportedLoacales.first;
+          }
+          return supportedLoacales.first;
+        },
+        locale: _locale,
+        supportedLocales: const [
+          Locale('en'),
+          Locale('ar'),
+        ],
+        home: FutureBuilder(
+          future: checkIfLogin(),
+          builder: (context, snapshot) {
+            return (snapshot.data != null)
+                ? DefaultBottomBarController(
+                    child: HomePage(
+                    indexFromNotification: indexFromNotification,
+                  ))
+                : const LoginScreen();
           },
-          locale: _locale,
-          supportedLocales: const [
-            Locale('en'),
-            Locale('ar'),
-          ],
-          home: FutureBuilder(
-            future: checkIfLogin(),
-            builder: (context, snapshot) {
-              return (snapshot.data != null)
-                  ? DefaultBottomBarController(
-                      child: HomePage(
-                      indexFromNotification: indexFromNotification,
-                    ))
-                  : const LoginScreen();
-            },
-          )),
+        ),
+      ),
     );
   }
 }

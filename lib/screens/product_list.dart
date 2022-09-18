@@ -9,9 +9,9 @@ import 'package:mmt_club/bloc/productsBloc/products_bloc.dart';
 import 'package:mmt_club/widgets/refresh.dart';
 import 'package:mmt_club/widgets/shimmer_list.dart';
 import '../Localization/localization.dart';
-import '../constants.dart';
+import '../styles/app_text.dart';
 import '../styles/app_colors.dart';
-import '../widgets/custom_text.dart';
+import '../widgets/custom_button.dart';
 import '../widgets/product/product_card.dart';
 import '../widgets/my_toast.dart';
 
@@ -49,7 +49,7 @@ class _ProductListState extends State<ProductList> {
         centerTitle: true,
         title: Text(
           Localization.of(context).getTranslatedValue("products"),
-          style: CustomTextStyle.appBarTextTheme(context),
+          style: AppTextStyle.appBarTextTheme(context),
         ),
         leading: IconButton(
             onPressed: () {

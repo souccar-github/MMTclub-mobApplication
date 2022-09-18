@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../Localization/localization.dart';
 import '../styles/app_colors.dart';
+import '../styles/app_text.dart';
 
 class Timer extends StatefulWidget {
   final VoidCallback? onTap;
@@ -32,9 +32,7 @@ class _TimerState extends State<Timer> {
 
   @override
   void dispose() {
-    setState(() {
-      running = false;
-    });
+    running = false;
     super.dispose();
   }
 
@@ -63,66 +61,47 @@ class _TimerState extends State<Timer> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (running)
-            Center(
-              child: Container(
-                padding: const EdgeInsets.all(5.0),
-                decoration: BoxDecoration(
-                  color: AppColors.basicColor,
-                  borderRadius: BorderRadius.circular(50.0),
-                ),
-                child: Center(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        FontAwesomeIcons.clock,
-                        color: AppColors.textWhite,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          (timeLeft.split(":")[1] +
-                                  ":" +
-                                  timeLeft.split(":")[2])
-                              .split(".")[0],
-                          style: TextStyle(color: AppColors.textWhite),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          if (!running)
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  setState(() {
-                    running = true;
-                    setTaget();
-                    executeTimer();
-                  });
-                  if (widget.onTap != null) {
-                    widget.onTap!();
-                  }
-                },
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        if (running)
+          Row(
+            //mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                width: 50.w,
                 child: Text(
-                  Localization.of(context).getTranslatedValue("Retry"),
-                  style: TextStyle(
-                    color: AppColors.textBlack,
-                    textBaseline: TextBaseline.ideographic,
-                  ),
+                  (timeLeft.split(":")[1] + ":" + timeLeft.split(":")[2])
+                      .split(".")[0],
+                  style: AppTextStyle.labelText2Theme(context),
                 ),
               ),
+              Icon(
+                Icons.timer_outlined,
+                color: AppColors.textBlack,
+              ),
+            ],
+          ),
+        if (!running)
+          InkWell(
+            onTap: () {
+              setState(() {
+                running = true;
+                setTaget();
+                executeTimer();
+              });
+              if (widget.onTap != null) {
+                widget.onTap!();
+              }
+            },
+            child: Text(
+              Localization.of(context).getTranslatedValue("Retry"),
+              style: AppTextStyle.labelText2Theme(context).copyWith(
+                textBaseline: TextBaseline.ideographic,
+              ),
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 }

@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mmt_club/Localization/localization.dart';
 import 'package:mmt_club/bloc/logoutBloc/logout_bloc.dart';
 import 'package:mmt_club/bloc/profileBloc/profile_bloc.dart';
-import 'package:mmt_club/constants.dart';
+import 'package:mmt_club/styles/app_text.dart';
 import 'package:mmt_club/screens/login_screen.dart';
 import 'package:mmt_club/widgets/hour_glass.dart';
 import 'package:mmt_club/widgets/my_slider.dart';
@@ -131,7 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   Localization.of(context)
                                           .getTranslatedValue("gifts") +
                                       " :",
-                                  style: CustomTextStyle.titeTextTheme(context),
+                                  style: AppTextStyle.titeTextTheme(context),
                                 ),
                               ),
                             ],

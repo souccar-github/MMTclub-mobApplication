@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mmt_club/Models/Project/product_details_model.dart';
-import 'package:mmt_club/constants.dart';
+import 'package:mmt_club/styles/app_text.dart';
 
 class ProductDescription extends StatelessWidget {
   const ProductDescription({
@@ -25,18 +25,18 @@ class ProductDescription extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 2.0),
             child: Text(
               product.name,
-              style: CustomTextStyle.titeTextTheme(context),
+              style: AppTextStyle.titeTextTheme(context),
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(8.0, 2.0, 8.0, 10.0),
             child: Text(product.category!.name,
-                style: CustomTextStyle.caption(context)),
+                style: AppTextStyle.caption(context)),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(product.description ?? "",
-                maxLines: 3, style: CustomTextStyle.decTextTheme(context)),
+                maxLines: 3, style: AppTextStyle.decTextTheme(context)),
           ),
         ],
       ),

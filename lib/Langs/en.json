@@ -5,7 +5,7 @@
     "newPassword":"New Password",
     "confirmPassword":"Confirm Password",
     "profile" : "Profile",
-    "Invalid_phone_number" : "Invalid phone number",
+    "Invalid_phone_number":"phone numbers should be 10 digits in length, only numbers are accepted",
     "login":"Login",
     
     "NATURE":"N A T U R E",
@@ -13,6 +13,7 @@
     "seeMore":"See More",
     "phone_number_ver" : "phone number verification",
     "Verify" : "Verify",
+    
     
     "Retry":"Retry",
     "Enter_the_code":"Enter the code sent to ",

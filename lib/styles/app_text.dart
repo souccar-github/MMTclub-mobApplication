@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mmt_club/styles/app_colors.dart';
 
-class CustomTextStyle {
+class AppTextStyle {
   static TextStyle appBarTextTheme(BuildContext context) {
     return Theme.of(context).textTheme.titleMedium!.copyWith(
           fontWeight: FontWeight.bold,
@@ -33,5 +33,19 @@ class CustomTextStyle {
 
   static TextStyle decTextTheme(BuildContext context) {
     return Theme.of(context).textTheme.bodyText2!;
+  }
+
+  static TextStyle labelText1Theme(BuildContext context) {
+    return Theme.of(context).textTheme.headline6!;
+  }
+
+  static TextStyle labelText2Theme(BuildContext context) {
+    return Theme.of(context).textTheme.titleSmall!.copyWith(
+          color: Colors.black.withOpacity(0.5),
+        );
+  }
+
+  static TextStyle labelText3Theme(BuildContext context) {
+    return Theme.of(context).textTheme.titleSmall!;
   }
 }

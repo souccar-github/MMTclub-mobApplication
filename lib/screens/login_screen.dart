@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:mmt_club/Localization/localization.dart';
 import 'package:mmt_club/screens/verify_screen.dart';
-import 'package:mmt_club/styles/theme.dart';
+import 'package:mmt_club/styles/app_theme.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
-  Duration get loginTime => const Duration(milliseconds: 2250);
+  Duration get loginTime => const Duration(milliseconds: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class LoginScreen extends StatelessWidget {
     }
 
     return FlutterLogin(
-      theme: loginTheme,
+      theme: AppTheme.loginTheme,
       userType: LoginUserType.phone,
       logo: 'assets/images/logommt.png',
       messages: LoginMessages(
@@ -55,10 +55,14 @@ class LoginScreen extends StatelessWidget {
         return null;
       },
       userValidator: (value) {
-        if (value!.isEmpty || !(value.startsWith("09") && value.length == 10)) {
+        String pattern = r'(^(?:[0]9)?[0-9]{10}$)';
+        RegExp regExp = RegExp(pattern);
+
+        if (!(regExp.hasMatch(value!) && value.startsWith("09"))) {
           return Localization.of(context)
               .getTranslatedValue("Invalid_phone_number");
         }
+
         return null;
       },
       onSubmitAnimationCompleted: () {},
