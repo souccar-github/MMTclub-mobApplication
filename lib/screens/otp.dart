@@ -93,24 +93,27 @@ class _OTPState extends State<OTP> {
       },
       child: Column(
         children: <Widget>[
-          TextFieldPin(
-            textController: textEditingController,
-            autoFocus: true,
-            codeLength: _otpCodeLength,
-            alignment: MainAxisAlignment.center,
-            defaultBoxSize: (MediaQuery.of(context).size.width / 10).w,
-            margin: 2,
-            selectedBoxSize: (MediaQuery.of(context).size.width / 10).w,
-            textStyle: const TextStyle(
-              fontSize: 18,
+          SizedBox(
+            height: 50.h,
+            child: TextFieldPin(
+              textController: textEditingController,
+              autoFocus: true,
+              codeLength: _otpCodeLength,
+              alignment: MainAxisAlignment.center,
+              defaultBoxSize: (MediaQuery.of(context).size.width / 10).w,
+              margin: 2,
+              selectedBoxSize: (MediaQuery.of(context).size.width / 10).w,
+              textStyle: const TextStyle(
+                fontSize: 18,
+              ),
+              defaultDecoration: _pinPutDecoration.copyWith(
+                  border:
+                      Border.all(color: AppColors.basicColor.withOpacity(0.6))),
+              selectedDecoration: _pinPutDecoration,
+              onChange: (code) {
+                _onOtpCallBack(code, false);
+              },
             ),
-            defaultDecoration: _pinPutDecoration.copyWith(
-                border:
-                    Border.all(color: AppColors.basicColor.withOpacity(0.6))),
-            selectedDecoration: _pinPutDecoration,
-            onChange: (code) {
-              _onOtpCallBack(code, false);
-            },
           ),
           BlocBuilder<AuthBloc, AuthState>(
             bloc: authBloc,
