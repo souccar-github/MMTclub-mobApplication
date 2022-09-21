@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mmt_club/screens/login_screen.dart';
+import 'package:mmt_club/pages/home_page.dart';
+import 'package:mmt_club/pages/login_page.dart';
 import 'package:mmt_club/styles/app_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Localization/localization.dart';
-import 'screens/home_page.dart';
 
 void main() async {
   //setupLocator();
@@ -159,9 +159,9 @@ class _MyAppState extends State<MyApp> {
             return (snapshot.data != null)
                 ? DefaultBottomBarController(
                     child: HomePage(
-                    indexFromNotification: indexFromNotification,
+                    indexFCM: indexFromNotification,
                   ))
-                : const LoginScreen();
+                : const LoginPage();
           },
         ),
       ),

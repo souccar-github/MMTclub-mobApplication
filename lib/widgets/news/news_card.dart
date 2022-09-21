@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mmt_club/API/statics.dart';
 import 'package:mmt_club/Models/Project/category_news_model.dart';
-import 'package:mmt_club/widgets/news/news_details.dart';
+import 'news_screen.dart';
 import '../../styles/app_colors.dart';
 
 class NewsCard extends StatelessWidget {
@@ -22,7 +22,7 @@ class NewsCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => NewsDetails(
+              builder: (context) => NewsScreen(
                 news: news,
               ),
             ),

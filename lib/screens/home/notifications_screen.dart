@@ -5,10 +5,10 @@ import 'package:mmt_club/Models/Project/notifications_model.dart';
 import 'package:mmt_club/styles/app_text.dart';
 import 'package:mmt_club/widgets/refresh.dart';
 
-import '../Localization/localization.dart';
-import '../bloc/notificationsBloc/notifications_bloc.dart';
-import '../styles/app_colors.dart';
-import '../widgets/notification/notification_item.dart';
+import '../../Localization/localization.dart';
+import '../../bloc/notificationsBloc/notifications_bloc.dart';
+import '../../styles/app_colors.dart';
+import '../../widgets/notification/notification_card.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -77,7 +77,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   itemBuilder: (context, index) {
                     NotificationsModel notification =
                         state.notifications[length - 1 - index];
-                    return NotificationItem(notification: notification);
+                    return NotificationCard(notification: notification);
                   },
                 ),
               );

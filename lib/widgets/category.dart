@@ -4,9 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mmt_club/API/statics.dart';
 import 'package:mmt_club/Localization/localization.dart';
 import '../Models/Project/category_model.dart';
+import 'news/see_more_news.dart';
 import 'my_slider.dart';
 import 'custom_button.dart';
-import 'news/all_news_screen.dart';
 
 class Category extends StatelessWidget {
   const Category({
@@ -41,7 +41,7 @@ class Category extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => AllNeswScreen(
+                        builder: (context) => SeeMoreNews(
                               catId: categoryModel.id,
                             )),
                   );

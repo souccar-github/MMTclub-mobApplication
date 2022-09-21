@@ -6,15 +6,16 @@ import 'package:mmt_club/Localization/localization.dart';
 import 'package:mmt_club/bloc/logoutBloc/logout_bloc.dart';
 import 'package:mmt_club/bloc/profileBloc/profile_bloc.dart';
 import 'package:mmt_club/styles/app_text.dart';
-import 'package:mmt_club/screens/login_screen.dart';
 import 'package:mmt_club/widgets/hour_glass.dart';
 import 'package:mmt_club/widgets/my_slider.dart';
 import 'package:mmt_club/styles/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mmt_club/widgets/refresh.dart';
-import '../widgets/custom_circular_slider.dart';
-import '../widgets/logo.dart';
-import '../widgets/my_toast.dart';
+
+import '../../pages/login_page.dart';
+import '../../widgets/custom_circular_slider.dart';
+import '../../widgets/logo.dart';
+import '../../widgets/my_toast.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -77,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LoginScreen()),
+                            builder: (context) => const LoginPage()),
                       );
                     }
                   },

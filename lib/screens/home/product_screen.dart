@@ -8,22 +8,22 @@ import 'package:mmt_club/bloc/export_bloc.dart';
 import 'package:mmt_club/bloc/productsBloc/products_bloc.dart';
 import 'package:mmt_club/widgets/refresh.dart';
 import 'package:mmt_club/widgets/shimmer_list.dart';
-import '../Localization/localization.dart';
-import '../styles/app_text.dart';
-import '../styles/app_colors.dart';
-import '../widgets/custom_button.dart';
-import '../widgets/product/product_card.dart';
-import '../widgets/my_toast.dart';
+import '../../Localization/localization.dart';
+import '../../styles/app_colors.dart';
+import '../../styles/app_text.dart';
+import '../../widgets/custom_button.dart';
+import '../../widgets/my_toast.dart';
+import '../../widgets/product/product_card.dart';
 
-class ProductList extends StatefulWidget {
+class ProductScreen extends StatefulWidget {
   static String routeName = "/ProductList";
-  const ProductList({Key? key}) : super(key: key);
+  const ProductScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProductList> createState() => _ProductListState();
+  State<ProductScreen> createState() => _ProductScreenState();
 }
 
-class _ProductListState extends State<ProductList> {
+class _ProductScreenState extends State<ProductScreen> {
   final ProductsBloc productBloc = ProductsBloc();
   bool isSortingAtoZ = true;
   bool isFiltering = false;
@@ -140,7 +140,7 @@ class _ProductListState extends State<ProductList> {
                             } else {
                               data = List.from(data.reversed);
                             }
-                            return ProductItem(
+                            return ProductCard(
                               product: data[index],
                             );
                           },

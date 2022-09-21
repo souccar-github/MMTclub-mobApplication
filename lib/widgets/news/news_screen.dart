@@ -5,19 +5,19 @@ import 'package:mmt_club/styles/app_text.dart';
 
 import '../../API/statics.dart';
 import '../../Localization/localization.dart';
-import '../../bloc/newsBloc/news_bloc.dart';
+import '../../bloc/export_bloc.dart';
 import '../../styles/app_colors.dart';
 
-class NewsDetails extends StatefulWidget {
+class NewsScreen extends StatefulWidget {
   final CategoryNewsModel? news;
   final int? newsId;
-  const NewsDetails({Key? key, this.news, this.newsId}) : super(key: key);
+  const NewsScreen({Key? key, this.news, this.newsId}) : super(key: key);
 
   @override
-  State<NewsDetails> createState() => _NewsDetailsState();
+  State<NewsScreen> createState() => _NewsScreenState();
 }
 
-class _NewsDetailsState extends State<NewsDetails> {
+class _NewsScreenState extends State<NewsScreen> {
   final NewsBloc newsBloc = NewsBloc();
   @override
   void initState() {

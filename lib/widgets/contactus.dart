@@ -10,8 +10,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../Localization/localization.dart';
 
 class ContactsUS extends StatefulWidget {
-  static String routeName = "/contactUs";
-
   const ContactsUS({Key? key}) : super(key: key);
 
   @override

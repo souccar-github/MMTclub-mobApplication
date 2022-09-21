@@ -9,17 +9,17 @@ import 'package:mmt_club/bloc/qrCodeBloc/qrcode_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
+import '../pages/home_page.dart';
 import '../styles/app_colors.dart';
-import 'home_page.dart';
 
-class QRViewExample extends StatefulWidget {
-  const QRViewExample({Key? key}) : super(key: key);
+class QRWidget extends StatefulWidget {
+  const QRWidget({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _QRViewExampleState();
+  State<StatefulWidget> createState() => _QRWidgetState();
 }
 
-class _QRViewExampleState extends State<QRViewExample> {
+class _QRWidgetState extends State<QRWidget> {
   Barcode? result;
   QRViewController? controller;
   bool flashOn = false;

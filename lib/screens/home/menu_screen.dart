@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mmt_club/screens/complaint.dart';
-import 'package:mmt_club/screens/product_list.dart';
-import '../Localization/localization.dart';
-import '../widgets/logo.dart';
-import 'contactus.dart';
+
+import '../../Localization/localization.dart';
+import '../../widgets/contactus.dart';
+import '../../widgets/logo.dart';
+import 'complaint_screen.dart';
+import 'product_screen.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({Key? key}) : super(key: key);
@@ -44,7 +45,8 @@ class MenuScreen extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const ProductList()),
+                                    builder: (context) =>
+                                        const ProductScreen()),
                               );
                             },
                             child: ListTile(
@@ -66,7 +68,8 @@ class MenuScreen extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Complaint()),
+                                    builder: (context) =>
+                                        const ComplaintScreen()),
                               );
                             },
                             child: ListTile(
