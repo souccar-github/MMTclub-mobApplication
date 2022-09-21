@@ -10,13 +10,12 @@ import '../../API/statics.dart';
 import '../../Localization/localization.dart';
 import '../../Models/Project/gifts_model.dart';
 import '../../styles/app_colors.dart';
-import '../custom_button.dart';
+import '../../widgets/custom_button.dart';
 
-class GiftDetailes extends StatelessWidget {
+class GiftScreen extends StatelessWidget {
   final GiftsModel gift;
   final GlobalKey<RefreshIndicatorState>? refreshKey;
-  GiftDetailes({Key? key, required this.gift, this.refreshKey})
-      : super(key: key);
+  GiftScreen({Key? key, required this.gift, this.refreshKey}) : super(key: key);
   final GiftBloc giftBloc = GiftBloc();
 
   addEventGetYourGift(bool isActive, BuildContext context) {

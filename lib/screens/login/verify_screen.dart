@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mmt_club/styles/app_text.dart';
-import '../Localization/localization.dart';
-import '../widgets/timer.dart';
-import 'background.dart';
-import 'login_screen.dart';
-import 'otp.dart';
+import '../../Localization/localization.dart';
+import '../../pages/login_page.dart';
+import '../../widgets/timer.dart';
+import '../background.dart';
+import '../home/otp_screen.dart';
 
 class VerifyScreen extends StatelessWidget {
   final String phone;
@@ -29,7 +29,7 @@ class VerifyScreen extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (_) => const LoginScreen()));
+                        MaterialPageRoute(builder: (_) => const LoginPage()));
                   },
                   child: Text(
                     Localization.of(context).getTranslatedValue("cancel"),
@@ -77,7 +77,7 @@ class VerifyScreen extends StatelessWidget {
                 ),
                 Directionality(
                   textDirection: TextDirection.ltr,
-                  child: OTP(
+                  child: OTPScreen(
                     phone: phone,
                     code: code,
                   ),

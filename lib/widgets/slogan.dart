@@ -10,24 +10,7 @@ class Slogan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-        // DefaultTextStyle(
-        //   style: TextStyle(
-        //     fontSize: 20.0,
-        //     color: AppColors.basicColor,
-        //   ),
-        //   child: AnimatedTextKit(
-        //     animatedTexts: [
-        //       WavyAnimatedText('N A T U R E'),
-        //       WavyAnimatedText('Is Our Inspiration'),
-        //     ],
-        //     isRepeatingAnimation: true,
-        //     onTap: () {
-        //       print("Tap Event");
-        //     },
-        //   ),
-        // );
-        Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(

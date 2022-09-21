@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mmt_club/screens/menu_screen.dart';
-import 'package:mmt_club/screens/notifications_screen.dart';
-import 'package:mmt_club/screens/profile_screen.dart';
+import 'package:mmt_club/widgets/qr.dart';
+import '../screens/home/main_screen.dart';
+import '../screens/home/menu_screen.dart';
+import '../screens/home/notifications_screen.dart';
+import '../screens/home/profile_screen.dart';
 import '../styles/app_colors.dart';
-import 'main_home_screen.dart';
-import 'qr.dart';
 
 // ignore: must_be_immutable
 class HomePage extends StatefulWidget {
-  int? indexFromNotification;
-  HomePage({Key? key, this.indexFromNotification}) : super(key: key);
+  int? indexFCM;
+  HomePage({Key? key, this.indexFCM}) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -29,9 +29,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.indexFromNotification != null) {
+    if (widget.indexFCM != null) {
       setState(() {
-        currentIndex = widget.indexFromNotification!;
+        currentIndex = widget.indexFCM!;
       });
     }
     return Scaffold(
@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
             DefaultBottomBarController.of(bottomBarControllerContext).isOpen
                 ? const Padding(
                     padding: EdgeInsets.fromLTRB(2.0, 30.0, 2.0, 0.0),
-                    child: QRViewExample(),
+                    child: QRWidget(),
                   )
                 : Container(),
         bottomAppBarBody: Card(
@@ -173,7 +173,7 @@ class _HomePageState extends State<HomePage> {
         onTap: () {
           setState(() {
             currentIndex = index;
-            widget.indexFromNotification = null;
+            widget.indexFCM = null;
           });
         },
         child: SizedBox(
@@ -193,7 +193,7 @@ class _HomePageState extends State<HomePage> {
 Widget getWidget(int index) {
   switch (index) {
     case 0:
-      return const MainHomeScreen();
+      return const MainScreen();
     case 1:
       return const MenuScreen();
     case 2:

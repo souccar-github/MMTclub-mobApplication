@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mmt_club/widgets/svg_asset.dart';
 
+import '../_not used/svg_asset.dart';
 import 'icons.dart';
 
 class CustomCard extends StatelessWidget {

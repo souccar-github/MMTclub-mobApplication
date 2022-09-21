@@ -4,9 +4,9 @@ import 'package:mmt_club/Models/Project/notifications_model.dart';
 import '../../Localization/localization.dart';
 import '../../styles/app_colors.dart';
 
-class NotificatioDetails extends StatelessWidget {
+class NotificationDetails extends StatelessWidget {
   final NotificationsModel notificationsModel;
-  const NotificatioDetails({Key? key, required this.notificationsModel})
+  const NotificationDetails({Key? key, required this.notificationsModel})
       : super(key: key);
 
   @override

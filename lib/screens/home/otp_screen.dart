@@ -6,25 +6,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mmt_club/Localization/localization.dart';
 import 'package:mmt_club/bloc/authBloc/auth_bloc.dart';
-import 'package:mmt_club/screens/login_screen.dart';
 import 'package:mmt_club/styles/app_colors.dart';
 import 'package:mmt_club/widgets/my_toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_otp_auto_verify/sms_otp_auto_verify.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../styles/app_text.dart';
-import 'home_page.dart';
 
-class OTP extends StatefulWidget {
+import '../../pages/home_page.dart';
+import '../../pages/login_page.dart';
+import '../../styles/app_text.dart';
+
+class OTPScreen extends StatefulWidget {
   final String phone;
   final String code;
-  const OTP({Key? key, required this.phone, required this.code})
+  const OTPScreen({Key? key, required this.phone, required this.code})
       : super(key: key);
   @override
-  _OTPState createState() => _OTPState();
+  _OTPScreenState createState() => _OTPScreenState();
 }
 
-class _OTPState extends State<OTP> {
+class _OTPScreenState extends State<OTPScreen> {
   final int _otpCodeLength = 5;
   String? _otpCode;
   final intRegex = RegExp(r'\d+', multiLine: true);
@@ -87,7 +88,7 @@ class _OTPState extends State<OTP> {
         } else if (state is AuthenticateError) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()),
+            MaterialPageRoute(builder: (context) => const LoginPage()),
           );
         }
       },
@@ -128,7 +129,7 @@ class _OTPState extends State<OTP> {
                     // authBloc.add(AuthenticateEvent(widget.phone));
                     if (_otpCode != null) {
                       if (_otpCode!.length < _otpCodeLength) {
-                      } else if (widget.code != _otpCode) {
+                      } else if (widget.code == _otpCode) {
                         authBloc.add(AuthenticateEvent(widget.phone));
                       } else {
                         MyToast.show(

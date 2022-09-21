@@ -3,12 +3,11 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:mmt_club/Localization/localization.dart';
-import 'package:mmt_club/screens/verify_screen.dart';
+import 'package:mmt_club/screens/login/verify_screen.dart';
 import 'package:mmt_club/styles/app_theme.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
-  Duration get loginTime => const Duration(milliseconds: 0);
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +33,7 @@ class LoginScreen extends StatelessWidget {
     }
 
     Future<String> _recoverPassword(String name) {
-      //print('Name: $name');
-      return Future.delayed(loginTime).then((_) {
+      return Future.delayed(const Duration(milliseconds: 0)).then((_) {
         return "null";
       });
     }

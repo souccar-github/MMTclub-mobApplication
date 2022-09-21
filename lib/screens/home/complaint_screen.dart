@@ -7,18 +7,18 @@ import 'package:mmt_club/bloc/complaintBloc/complaint_bloc.dart';
 import 'package:mmt_club/styles/app_text.dart';
 import 'package:mmt_club/widgets/my_toast.dart';
 
-import '../Localization/localization.dart';
-import '../styles/app_colors.dart';
-import '../widgets/custom_button.dart';
+import '../../Localization/localization.dart';
+import '../../styles/app_colors.dart';
+import '../../widgets/custom_button.dart';
 
-class Complaint extends StatefulWidget {
-  const Complaint({Key? key}) : super(key: key);
+class ComplaintScreen extends StatefulWidget {
+  const ComplaintScreen({Key? key}) : super(key: key);
 
   @override
-  State<Complaint> createState() => _ComplaintState();
+  State<ComplaintScreen> createState() => _ComplaintScreenState();
 }
 
-class _ComplaintState extends State<Complaint> {
+class _ComplaintScreenState extends State<ComplaintScreen> {
   final ComplaintBloc complaintBloc = ComplaintBloc();
   late TextEditingController titleController;
   late TextEditingController bodyController;

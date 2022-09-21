@@ -1,9 +1,6 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../Localization/localization.dart';
-import '../styles/app_colors.dart';
-
 class UserCard extends StatelessWidget {
   final String? username;
   final String? mobile;
@@ -22,7 +19,7 @@ class UserCard extends StatelessWidget {
         margin: EdgeInsets.only(top: 12.h),
         onPressed: () {},
         style: NeumorphicStyle(
-          color: AppColors.basicColor,
+          color: const Color(0xff00a5a0),
           shadowDarkColor: Colors.black,
           shape: NeumorphicShape.flat,
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(16.0)),
@@ -58,20 +55,18 @@ class UserCard extends StatelessWidget {
                         child: Row(
                           //mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              Localization.of(context)
-                                      .getTranslatedValue("Username") +
-                                  ": ",
+                            const Text(
+                              "Username: ",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: AppColors.textWhite,
+                                color: Colors.white,
                               ),
                             ),
                             Text(
                               username ?? "",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: AppColors.textWhite.withOpacity(0.7),
+                                color: Colors.white.withOpacity(0.7),
                               ),
                             ),
                           ],
@@ -84,20 +79,18 @@ class UserCard extends StatelessWidget {
                         child: Row(
                           //mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              Localization.of(context)
-                                      .getTranslatedValue("phone_number") +
-                                  ": ",
+                            const Text(
+                              "Phone Number: ",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: AppColors.textWhite,
+                                color: Colors.white,
                               ),
                             ),
                             Text(
                               mobile ?? "",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: AppColors.textWhite.withOpacity(0.7),
+                                color: Colors.white.withOpacity(0.7),
                               ),
                             ),
                           ],

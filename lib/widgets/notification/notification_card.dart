@@ -5,12 +5,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mmt_club/Models/Project/notifications_model.dart';
 import 'package:mmt_club/bloc/notificationsBloc/notifications_bloc.dart';
 import 'package:mmt_club/styles/app_colors.dart';
-import 'package:mmt_club/widgets/news/news_details.dart';
 
+import '../news/news_screen.dart';
 import 'notification_details.dart';
 
-class NotificationItem extends StatelessWidget {
-  const NotificationItem({
+class NotificationCard extends StatelessWidget {
+  const NotificationCard({
     Key? key,
     required this.notification,
   }) : super(key: key);
@@ -41,7 +41,7 @@ class NotificationItem extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => NewsDetails(
+                    builder: (context) => NewsScreen(
                       newsId: notification.distId,
                     ),
                   ),
@@ -89,7 +89,7 @@ class _ItemState extends State<Item> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => NewsDetails(
+                    builder: (context) => NewsScreen(
                           newsId: widget.notification.distId,
                         )),
               );
@@ -102,7 +102,7 @@ class _ItemState extends State<Item> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => NotificatioDetails(
+                  builder: (context) => NotificationDetails(
                     notificationsModel: widget.notification,
                   ),
                 ),

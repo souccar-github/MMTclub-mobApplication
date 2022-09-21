@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mmt_club/bloc/newsBloc/news_bloc.dart';
+
 import '../../Localization/localization.dart';
 import '../../styles/app_colors.dart';
-import '../shimmer_list.dart';
 import 'news_card.dart';
+import '../shimmer_list.dart';
 
-class AllNeswScreen extends StatefulWidget {
+class SeeMoreNews extends StatefulWidget {
   final int catId;
-  const AllNeswScreen({Key? key, required this.catId}) : super(key: key);
+  const SeeMoreNews({Key? key, required this.catId}) : super(key: key);
 
   @override
-  State<AllNeswScreen> createState() => _AllNeswScreenState();
+  State<SeeMoreNews> createState() => _SeeMoreNewsState();
 }
 
-class _AllNeswScreenState extends State<AllNeswScreen> {
+class _SeeMoreNewsState extends State<SeeMoreNews> {
   final NewsBloc newsBloc = NewsBloc();
   @override
   void initState() {

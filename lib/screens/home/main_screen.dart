@@ -3,21 +3,22 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:mmt_club/Models/Project/home_model.dart';
 import 'package:mmt_club/bloc/homeBloc/home_bloc.dart';
 import 'package:mmt_club/widgets/refresh.dart';
-import '../widgets/category.dart';
-import '../widgets/custom_circular_slider.dart';
-import '../widgets/hour_glass.dart';
-import '../widgets/logo.dart';
-import '../widgets/slogan.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class MainHomeScreen extends StatefulWidget {
-  const MainHomeScreen({Key? key}) : super(key: key);
+import '../../widgets/category.dart';
+import '../../widgets/custom_circular_slider.dart';
+import '../../widgets/hour_glass.dart';
+import '../../widgets/logo.dart';
+import '../../widgets/slogan.dart';
+
+class MainScreen extends StatefulWidget {
+  const MainScreen({Key? key}) : super(key: key);
 
   @override
-  State<MainHomeScreen> createState() => _MainHomeScreenState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainHomeScreenState extends State<MainHomeScreen> {
+class _MainScreenState extends State<MainScreen> {
   final HomeBloc homeBloc = HomeBloc();
   late GlobalKey<RefreshIndicatorState> _refreshIndicatorKey;
   @override

@@ -4,10 +4,10 @@ import 'package:mmt_club/API/statics.dart';
 import 'package:mmt_club/styles/app_text.dart';
 import 'package:mmt_club/styles/app_colors.dart';
 import '../../Models/Project/product_details_model.dart';
-import 'details_screen.dart';
+import 'product_details.dart';
 
-class ProductItem extends StatelessWidget {
-  const ProductItem({
+class ProductCard extends StatelessWidget {
+  const ProductCard({
     Key? key,
     required this.product,
   }) : super(key: key);

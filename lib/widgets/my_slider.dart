@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mmt_club/styles/app_colors.dart';
-import 'package:mmt_club/widgets/news/news_details.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../API/statics.dart';
 import '../Models/Project/category_news_model.dart';
 import '../Models/Project/gifts_model.dart';
-import 'gift/gift_details.dart';
+import '../screens/home/gift_screen.dart';
+import 'news/news_screen.dart';
 import 'neum.dart';
 import 'shimmer_news.dart';
 
@@ -45,7 +45,7 @@ class _MySliderState extends State<MySlider> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => GiftDetailes(
+                                builder: (context) => GiftScreen(
                                       gift: gifts[index],
                                       refreshKey: widget.refreshKey,
                                     )));
@@ -91,7 +91,7 @@ class _MySliderState extends State<MySlider> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => NewsDetails(
+                                    builder: (context) => NewsScreen(
                                           news: news[index],
                                         )));
                           },
