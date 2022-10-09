@@ -1,10 +1,14 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:mmt_club/Models/Project/home_model.dart';
 import 'package:mmt_club/bloc/homeBloc/home_bloc.dart';
+import 'package:mmt_club/styles/app_colors.dart';
 import 'package:mmt_club/widgets/refresh.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
+import '../../Localization/localization.dart';
 import '../../widgets/category.dart';
 import '../../widgets/custom_circular_slider.dart';
 import '../../widgets/hour_glass.dart';
@@ -48,13 +52,13 @@ class _MainScreenState extends State<MainScreen> {
         physics: const BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.white,
             elevation: 0.0,
             expandedHeight: 200.h,
             pinned: true,
             flexibleSpace: const FlexibleSpaceBar(
               expandedTitleScale: 1.5,
-              //titlePadding: EdgeInsets.only(top: 4.0, bottom: 4.0),
+              titlePadding: EdgeInsets.only(top: 4.0, bottom: 4.0),
               centerTitle: true,
               title: Logo(imagePath: 'assets/images/logommt.png'),
             ),

@@ -5,10 +5,17 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mmt_club/pages/home_page.dart';
 import 'package:mmt_club/pages/login_page.dart';
+import 'package:mmt_club/screens/offline_screen.dart';
+import 'package:mmt_club/screens/splash_screen.dart';
 import 'package:mmt_club/styles/app_colors.dart';
+import 'package:mmt_club/styles/app_text.dart';
+import 'package:mmt_club/widgets/logo.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Localization/localization.dart';
 
@@ -23,6 +30,7 @@ void main() async {
 
 class MyApp extends StatefulWidget {
   static void setLocale(BuildContext context, Locale locale) {
+    // instance of state of this Widget
     _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
     Future.delayed(const Duration(milliseconds: 0), () async {
       state?.setLocale(locale);
@@ -37,7 +45,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Locale _locale = Locale(Platform.localeName.substring(0, 2));
-
   int? indexFromNotification;
   void setLocale(Locale locale) {
     setState(() {
@@ -48,12 +55,18 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-      SystemUiOverlay.bottom,
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
+    //   SystemUiOverlay.bottom,
+    // ]);
+
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
     ]);
     checkIfLogin();
     configureFirebaseMessaging();
-    //initialization();
   }
 
   Future checkIfLogin() async {
@@ -109,10 +122,11 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void initialization() async {
-    await Future.delayed(const Duration(seconds: 3));
-    //FlutterNativeSplash.remove();
-  }
+  // void initialization() async {
+  //   await Future.delayed(const Duration(seconds: 3)).then((value) {
+
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -127,12 +141,6 @@ class _MyAppState extends State<MyApp> {
             primary: AppColors.basicColor,
           ),
         ),
-        // : ThemeData(
-        //     fontFamily: "Gotham",
-        //     colorScheme: ColorScheme.light(
-        //       primary: AppColors.basicColor,
-        //     ),
-        //   ),
         debugShowCheckedModeBanner: false,
         localizationsDelegates: const [
           Localization.delegate,
@@ -153,16 +161,23 @@ class _MyAppState extends State<MyApp> {
           Locale('en'),
           Locale('ar'),
         ],
-        home: FutureBuilder(
-          future: checkIfLogin(),
-          builder: (context, snapshot) {
-            return (snapshot.data != null)
-                ? DefaultBottomBarController(
-                    child: HomePage(
-                    indexFCM: indexFromNotification,
-                  ))
-                : const LoginPage();
-          },
+        home: SplashScreen(
+          seconds: 3,
+          logo: "assets/images/logommt.png",
+          child: OfflineScreen(
+            child: FutureBuilder(
+              future: checkIfLogin(),
+              builder: (context, snapshot) {
+                return (snapshot.data != null)
+                    ? DefaultBottomBarController(
+                        child: HomePage(
+                          indexFCM: indexFromNotification,
+                        ),
+                      )
+                    : const LoginPage();
+              },
+            ),
+          ),
         ),
       ),
     );

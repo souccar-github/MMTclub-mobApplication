@@ -26,32 +26,44 @@ class ProductCard extends StatelessWidget {
           ),
         ),
         child: Container(
-          color: const Color.fromARGB(255, 235, 243, 242),
+          decoration: BoxDecoration(
+            color: AppColors.textWhite,
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.textBlack.withOpacity(0.2),
+                blurRadius: 3.0,
+              ),
+            ],
+            border: Border.all(
+              width: 2,
+              color: AppColors.basicColor.withAlpha(100),
+            ),
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          //color: const Color.fromARGB(255, 235, 243, 242),
           child: Row(
             children: [
               product.firstImage == null
-                  ? SizedBox(
+                  ? Container(
+                      padding: const EdgeInsets.all(10.0),
                       width: 88.w,
                       child: AspectRatio(
                         aspectRatio: 0.88,
-                        child: Container(
-                          //padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF5F6F9),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
+                        child: Image.asset(
+                          "assets/images/image_gallery.png",
+                          fit: BoxFit.contain,
                         ),
                       ),
                     )
-                  : SizedBox(
+                  : Container(
+                      padding: const EdgeInsets.all(10.0),
                       width: 88.w,
                       child: AspectRatio(
                         aspectRatio: 0.88,
                         child: Container(
                           //padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFF5F6F9),
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(18),
                           ),
                           child: Image.network(
                             Statics.baseUrl + product.firstImage!,
@@ -60,25 +72,33 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
                     ),
-              const SizedBox(width: 20),
+              SizedBox(width: 20.w),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    product.name,
-                    style: AppTextStyle.itemListTextTheme(context),
-                    maxLines: 2,
+                  Container(
+                    width: 230.w,
+                    child: Text(
+                      product.name,
+                      style: AppTextStyle.itemListTextTheme(context),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   Row(
                     children: [
-                      Text(product.point.toString(),
-                          style: TextStyle(
-                              color: AppColors.textBlack.withOpacity(0.5))),
+                      Text(
+                        product.point.toString(),
+                        style: TextStyle(
+                          color: AppColors.textBlack.withOpacity(0.5),
+                        ),
+                      ),
                       SizedBox(
-                          height: 30,
-                          width: 30,
-                          child: Image.asset("assets/images/pcoins.png")),
+                        height: 30.h,
+                        width: 30.w,
+                        child: Image.asset("assets/images/pcoins.png"),
+                      ),
                     ],
                   ),
                 ],

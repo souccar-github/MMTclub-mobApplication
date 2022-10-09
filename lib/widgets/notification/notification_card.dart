@@ -113,14 +113,19 @@ class _ItemState extends State<Item> {
       },
       child: Container(
         decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.textBlack.withOpacity(0.5),
-                blurRadius: 10.0,
-              ),
-            ],
-            color: AppColors.textWhite,
-            borderRadius: BorderRadius.circular(15.0)),
+          color: AppColors.textWhite,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.textBlack.withOpacity(0.2),
+              blurRadius: 3.0,
+            ),
+          ],
+          border: Border.all(
+            width: 2,
+            color: AppColors.basicColor.withAlpha(100),
+          ),
+          borderRadius: BorderRadius.circular(15.0),
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -157,7 +162,7 @@ class _ItemState extends State<Item> {
                   widget.notification.isRead
                       ? FontAwesomeIcons.bell
                       : FontAwesomeIcons.solidBell,
-                  color: Colors.amber,
+                  color: AppColors.basicColor,
                 ),
               ),
             ),

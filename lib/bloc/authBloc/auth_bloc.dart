@@ -13,7 +13,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await Project.apiClient.register(event.phone).then((_) async {
         emit(AuthenticateSuccessfully());
       }).catchError((e) {
-        AuthenticateError(e.toString());
+        emit(AuthenticateError(e.toString()));
       });
     });
   }

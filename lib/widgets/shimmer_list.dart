@@ -11,6 +11,7 @@ class ShimmerList extends StatelessWidget {
     int time = 1000;
 
     return ListView.builder(
+      physics: const BouncingScrollPhysics(),
       itemCount: 10,
       itemBuilder: (BuildContext context, int index) {
         offset += 5;

@@ -86,6 +86,12 @@ class _OTPScreenState extends State<OTPScreen> {
             );
           }
         } else if (state is AuthenticateError) {
+          MyToast.show(
+            context: context,
+            text:
+                Localization.of(context).getTranslatedValue("try_again_later"),
+            toastState: ToastState.ERROR,
+          );
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const LoginPage()),
@@ -116,39 +122,45 @@ class _OTPScreenState extends State<OTPScreen> {
               },
             ),
           ),
-          BlocBuilder<AuthBloc, AuthState>(
-            bloc: authBloc,
-            builder: (context, state) {
-              if (state is AuthenticateWaiting) {
-                return SpinKitPouringHourGlassRefined(
-                  color: AppColors.basicColor.withOpacity(0.7),
-                );
-              } else {
-                return InkWell(
-                  onTap: () {
-                    // authBloc.add(AuthenticateEvent(widget.phone));
-                    if (_otpCode != null) {
-                      if (_otpCode!.length < _otpCodeLength) {
-                      } else if (widget.code == _otpCode) {
-                        authBloc.add(AuthenticateEvent(widget.phone));
-                      } else {
-                        MyToast.show(
-                          context: context,
-                          text: "Verification OTP Code $_otpCode Failed",
-                          toastState: ToastState.ERROR,
-                        );
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: BlocBuilder<AuthBloc, AuthState>(
+              bloc: authBloc,
+              builder: (context, state) {
+                if (state is AuthenticateWaiting) {
+                  return SpinKitPouringHourGlassRefined(
+                    color: AppColors.basicColor.withOpacity(0.7),
+                  );
+                } else {
+                  return InkWell(
+                    onTap: () {
+                      // authBloc.add(AuthenticateEvent(widget.phone));
+                      if (_otpCode != null) {
+                        if (_otpCode!.length < _otpCodeLength) {
+                        } else if (widget.code != _otpCode) {
+                          authBloc.add(AuthenticateEvent(widget.phone));
+                        } else {
+                          MyToast.show(
+                            context: context,
+                            text: "Verification OTP Code $_otpCode Failed",
+                            toastState: ToastState.ERROR,
+                          );
+                        }
                       }
-                    }
-                  },
-                  child: Text(
-                    Localization.of(context).getTranslatedValue("Verify"),
-                    style: AppTextStyle.labelText2Theme(context).copyWith(
-                      color: AppColors.basicColor,
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        Localization.of(context).getTranslatedValue("Verify"),
+                        style: AppTextStyle.labelText2Theme(context).copyWith(
+                          color: AppColors.basicColor,
+                        ),
+                      ),
                     ),
-                  ),
-                );
-              }
-            },
+                  );
+                }
+              },
+            ),
           ),
         ],
       ),

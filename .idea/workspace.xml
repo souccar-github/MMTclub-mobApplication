@@ -7,31 +7,57 @@
     <list default="true" id="45c837ac-1370-42e3-92da-1c056b2b8266" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-hdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-mdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-night-hdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-night-mdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-night-xhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-night-xxhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-night-xxxhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-v21/background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-v21/launch_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable-v21/launch_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable-xxxhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable/background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable/launch_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable/launch_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values-v31/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/Leaves.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/iconApp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/mmt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/json/offline.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/API/Project/Project.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/API/Project/Project.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/API/Statics.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/API/Statics.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Langs/ar.json" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Langs/ar.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Langs/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Langs/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Models/Project/category_news_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Models/Project/category_news_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Models/Project/category_news_model.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Models/Project/category_news_model.g.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Models/Project/general_settings_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Models/Project/general_settings_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Models/Project/general_settings_model.g.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Models/Project/general_settings_model.g.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/bloc/authBloc/auth_bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/bloc/authBloc/auth_bloc.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/contactus.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/contactus.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/login_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/login_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/menu_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/menu_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/otp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/otp.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/profile_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/qr.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/qr.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/verify_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/verify_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home/complaint_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home/complaint_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home/gift_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home/gift_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home/main_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home/main_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home/menu_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home/menu_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home/otp_screen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home/product_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home/product_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/home/profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/home/profile_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/login/verify_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/login/verify_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/widgets/category.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/category.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/custom_circular_slider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/custom_circular_slider.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/gift/gift_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/gift/gift_details.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/contactus.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/contactus.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/logo.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/logo.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/widgets/my_slider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/my_slider.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/widgets/neum.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/neum.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/widgets/news/news_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/news/news_card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/news/news_details.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/news/news_details.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/notification/notification_item.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/notification/notification_item.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/news/news_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/news/news_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/notification/notification_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/notification/notification_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/product/components/product_images.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/product/components/product_images.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/product/product_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/product/product_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/qr.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/qr.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/refresh.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/refresh.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/shimmer_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/shimmer_list.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

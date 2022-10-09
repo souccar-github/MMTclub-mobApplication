@@ -36,14 +36,20 @@ class _ProductImagesState extends State<ProductImages> {
             aspectRatio: 1,
             child: Hero(
               tag: widget.product.id.toString(),
-              child: Image.network(
-                Statics.baseUrl + images[selectedImage]!,
-                fit: BoxFit.contain,
-              ),
+              child: images[selectedImage] == null
+                  ? Image.asset(
+                      "assets/images/image_gallery.png",
+                      fit: BoxFit.contain,
+                    )
+                  : Image.network(
+                      Statics.baseUrl + images[selectedImage]!,
+                      fit: BoxFit.contain,
+                    ),
             ),
           ),
         ),
         // SizedBox(height: getProportionateScreenWidth(20)),
+
         Padding(
           padding: const EdgeInsets.all(4.0),
           child: Row(
@@ -78,7 +84,12 @@ class _ProductImagesState extends State<ProductImages> {
               color: AppColors.basicColor
                   .withOpacity(selectedImage == index ? 1 : 0)),
         ),
-        child: Image.network(Statics.baseUrl + images[index]),
+        child: images[selectedImage] == null
+            ? Image.asset(
+                "assets/images/image_gallery.png",
+                fit: BoxFit.contain,
+              )
+            : Image.network(Statics.baseUrl + images[index]),
       ),
     );
   }

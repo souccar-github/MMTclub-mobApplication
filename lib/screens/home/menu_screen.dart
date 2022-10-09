@@ -32,67 +32,73 @@ class MenuScreen extends StatelessWidget {
                 ),
               ),
               SliverList(
-                  delegate: SliverChildBuilderDelegate((context, index) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 2.5,
-                      child: Column(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ProductScreen()),
-                              );
-                            },
-                            child: ListTile(
-                              title: Text(
-                                  Localization.of(context)
-                                      .getTranslatedValue("products"),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .subtitle1!
-                                      .apply(fontWeightDelta: 3)),
-                              trailing: Icon(
-                                FontAwesomeIcons.list,
-                                color: Colors.black.withOpacity(0.65),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height / 2.5,
+                        child: Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ProductScreen()),
+                                );
+                              },
+                              child: ListTile(
+                                title: Text(
+                                    Localization.of(context)
+                                        .getTranslatedValue("products"),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle1!
+                                        .apply(fontWeightDelta: 3)),
+                                trailing: Icon(
+                                  FontAwesomeIcons.list,
+                                  color: Colors.black.withOpacity(0.65),
+                                ),
                               ),
                             ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ComplaintScreen()),
-                              );
-                            },
-                            child: ListTile(
-                              title: Text(
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ComplaintScreen()),
+                                );
+                              },
+                              child: ListTile(
+                                title: Text(
                                   Localization.of(context)
                                       .getTranslatedValue("FeedBack"),
                                   style: Theme.of(context)
                                       .textTheme
                                       .subtitle1!
-                                      .apply(fontWeightDelta: 3)),
+                                      .apply(fontWeightDelta: 3),
+                                ),
+                                trailing: Icon(
+                                  Icons.folder_copy_outlined,
+                                  color: Colors.black.withOpacity(0.65),
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    //const ContactsUS(),
-                    const SizedBox(
-                      child: ContactsUS(),
-                      height: 125,
-                    )
-                  ],
-                );
-              }, childCount: 1))
+                      //const ContactsUS(),
+                      SizedBox(
+                        child: const ContactsUS(),
+                        height: 125.h,
+                      )
+                    ],
+                  );
+                }, childCount: 1),
+              )
             ],
           )),
     );

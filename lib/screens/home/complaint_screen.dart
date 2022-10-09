@@ -22,6 +22,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
   final ComplaintBloc complaintBloc = ComplaintBloc();
   late TextEditingController titleController;
   late TextEditingController bodyController;
+  GlobalKey<FormState> formState = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
@@ -60,6 +61,7 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
       body: Padding(
         padding: EdgeInsets.fromLTRB(16.w, 32.h, 16.w, 4.h),
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -96,36 +98,55 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                   child: Padding(
                     padding:
                         EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h),
-                    child: Column(
-                      children: [
-                        TextField(
-                          controller: titleController,
-                          cursorHeight: 25,
-                          cursorColor: AppColors.basicColor,
-                          decoration: InputDecoration(
-                            hintText: Localization.of(context)
-                                .getTranslatedValue("title"),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25.0)),
+                    child: Form(
+                      key: formState,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            validator: (text) {
+                              if (text == null || text == "") {
+                                return Localization.of(context)
+                                    .getTranslatedValue(
+                                        "validate_of_complaint");
+                              }
+                              return null;
+                            },
+                            controller: titleController,
+                            cursorHeight: 25,
+                            cursorColor: AppColors.basicColor,
+                            decoration: InputDecoration(
+                              hintText: Localization.of(context)
+                                  .getTranslatedValue("title"),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(25.0)),
+                            ),
+                            maxLines: 1,
                           ),
-                          maxLines: 1,
-                        ),
-                        SizedBox(height: 5.h),
-                        TextField(
-                          controller: bodyController,
-                          cursorHeight: 25,
-                          cursorColor: AppColors.basicColor,
-                          decoration: InputDecoration(
-                            hintText: Localization.of(context)
-                                    .getTranslatedValue("body") +
-                                "....",
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(25.0)),
+                          SizedBox(height: 5.h),
+                          TextFormField(
+                            controller: bodyController,
+                            cursorHeight: 25,
+                            cursorColor: AppColors.basicColor,
+                            decoration: InputDecoration(
+                              hintText: Localization.of(context)
+                                      .getTranslatedValue("body") +
+                                  "....",
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(25.0)),
+                            ),
+                            maxLines: 10,
+                            validator: (text) {
+                              if (text == null || text == "") {
+                                return Localization.of(context)
+                                    .getTranslatedValue(
+                                        "validate_of_complaint");
+                              }
+                              return null;
+                            },
                           ),
-                          maxLines: 10,
-                        ),
-                        SizedBox(height: 5.h),
-                      ],
+                          SizedBox(height: 5.h),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -143,12 +164,18 @@ class _ComplaintScreenState extends State<ComplaintScreen> {
                   }
                   return CustomButton(
                     text: Localization.of(context).getTranslatedValue("send"),
-                    onPressed: () {
-                      complaintBloc.add(SendComplaintEvent(ComplaintModel(
-                          titleController.text, bodyController.text)));
-                    },
                     icon: FontAwesomeIcons.paperPlane,
                     size: 20.h,
+                    onPressed: () {
+                      if (formState.currentState!.validate()) {
+                        complaintBloc.add(
+                          SendComplaintEvent(
+                            ComplaintModel(
+                                titleController.text, bodyController.text),
+                          ),
+                        );
+                      }
+                    },
                   );
                 },
               )

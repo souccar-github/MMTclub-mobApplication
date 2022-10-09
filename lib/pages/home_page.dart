@@ -1,9 +1,14 @@
+import 'dart:async';
+
 import 'package:expandable_bottom_bar/expandable_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mmt_club/widgets/qr.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import '../Localization/localization.dart';
 import '../screens/home/main_screen.dart';
 import '../screens/home/menu_screen.dart';
 import '../screens/home/notifications_screen.dart';
@@ -34,94 +39,137 @@ class _HomePageState extends State<HomePage> {
         currentIndex = widget.indexFCM!;
       });
     }
-    return Scaffold(
-      //backgroundColor: Colors.white,
-      extendBody: true,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: GestureDetector(
-        onVerticalDragUpdate: DefaultBottomBarController.of(context).onDrag,
-        onVerticalDragEnd: DefaultBottomBarController.of(context).onDragEnd,
-        child: FloatingActionButton.extended(
-          label: AnimatedBuilder(
-            animation: DefaultBottomBarController.of(context).state,
-            builder: (contextBar, child) {
-              //getValue(context);
-              DefaultBottomBarController.of(contextBar).addListener(() {
-                setState(() {
-                  bottomBarControllerContext = contextBar;
+    return WillPopScope(
+      onWillPop: () async {
+        Alert(
+          context: context,
+          onWillPopActive: false,
+          closeIcon: Container(),
+          desc: Localization.of(context).getTranslatedValue("close_app"),
+          image: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(
+              Icons.exit_to_app,
+              color: AppColors.basicColor,
+            ),
+          ),
+          buttons: [
+            DialogButton(
+              color: AppColors.basicColor,
+              radius: BorderRadius.circular(25.0),
+              child: Text(
+                Localization.of(context).getTranslatedValue("OK"),
+                style: const TextStyle(color: Colors.white),
+              ),
+              onPressed: () {
+                SystemNavigator.pop();
+              },
+            ),
+            DialogButton(
+              color: Colors.white,
+              child: Text(
+                Localization.of(context).getTranslatedValue("cancel"),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+          ],
+        ).show();
+
+        return true;
+      },
+      child: Scaffold(
+        //backgroundColor: Colors.white,
+        extendBody: true,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: GestureDetector(
+          onVerticalDragUpdate: DefaultBottomBarController.of(context).onDrag,
+          onVerticalDragEnd: DefaultBottomBarController.of(context).onDragEnd,
+          child: FloatingActionButton.extended(
+            label: AnimatedBuilder(
+              animation: DefaultBottomBarController.of(context).state,
+              builder: (contextBar, child) {
+                //getValue(context);
+                DefaultBottomBarController.of(contextBar).addListener(() {
+                  setState(() {
+                    bottomBarControllerContext = contextBar;
+                  });
                 });
-              });
-              return Row(
-                children: [
-                  const Icon(Icons.qr_code),
-                  const SizedBox(width: 4.0),
-                  AnimatedBuilder(
-                    animation: DefaultBottomBarController.of(contextBar).state,
-                    builder: (context, child) => Transform(
-                      alignment: Alignment.center,
-                      transform: Matrix4.diagonal3Values(
-                        1,
-                        DefaultBottomBarController.of(context).state.value * 2 -
-                            1,
-                        1,
+                return Row(
+                  children: [
+                    const Icon(Icons.qr_code),
+                    const SizedBox(width: 4.0),
+                    AnimatedBuilder(
+                      animation:
+                          DefaultBottomBarController.of(contextBar).state,
+                      builder: (context, child) => Transform(
+                        alignment: Alignment.center,
+                        transform: Matrix4.diagonal3Values(
+                          1,
+                          DefaultBottomBarController.of(context).state.value *
+                                  2 -
+                              1,
+                          1,
+                        ),
+                        child: child,
                       ),
-                      child: child,
                     ),
-                  ),
-                ],
-              );
-            },
+                  ],
+                );
+              },
+            ),
+            elevation: 2,
+            backgroundColor: AppColors.backgroundFloating.withOpacity(0.7),
+            foregroundColor: AppColors.floating,
+            //
+            //Set onPressed event to swap state of bottom bar
+            onPressed: () => DefaultBottomBarController.of(context).swap(),
           ),
-          elevation: 2,
-          backgroundColor: AppColors.backgroundFloating.withOpacity(0.7),
-          foregroundColor: AppColors.floating,
-          //
-          //Set onPressed event to swap state of bottom bar
-          onPressed: () => DefaultBottomBarController.of(context).swap(),
         ),
-      ),
-      bottomNavigationBar: BottomExpandableAppBar(
-        bottomAppBarColor: AppColors.bottomAppBarColor,
-        horizontalMargin: 16,
-        shape: const AutomaticNotchedShape(
-            RoundedRectangleBorder(), StadiumBorder(side: BorderSide())),
-        expandedBackColor: AppColors.expandedBackColor,
-        expandedBody:
-            DefaultBottomBarController.of(bottomBarControllerContext).isOpen
-                ? const Padding(
-                    padding: EdgeInsets.fromLTRB(2.0, 30.0, 2.0, 0.0),
-                    child: QRWidget(),
-                  )
-                : Container(),
-        bottomAppBarBody: Card(
-          elevation: 10.0,
-          margin: EdgeInsets.zero,
-          child: buildNavBottomBar(),
-        ),
-      ),
-      body: Stack(
-        children: [
-          Container(
-            color: Colors.white,
+        bottomNavigationBar: BottomExpandableAppBar(
+          bottomAppBarColor: AppColors.bottomAppBarColor,
+          horizontalMargin: 16,
+          shape: const AutomaticNotchedShape(
+              RoundedRectangleBorder(), StadiumBorder(side: BorderSide())),
+          expandedBackColor: AppColors.expandedBackColor,
+          expandedBody:
+              DefaultBottomBarController.of(bottomBarControllerContext).isOpen
+                  ? const Padding(
+                      padding: EdgeInsets.fromLTRB(2.0, 30.0, 2.0, 0.0),
+                      child: QRWidget(),
+                    )
+                  : Container(),
+          bottomAppBarBody: Card(
+            elevation: 10.0,
+            margin: EdgeInsets.zero,
+            child: buildNavBottomBar(),
           ),
-          Positioned(
-            top: 0.0,
-            left: 150.0.w,
-            child: SizedBox(
-              width: 400.w,
-              //color: Colors.red,
-              child: Image.asset(
-                "assets/images/leaf2.png",
-                fit: BoxFit.fitWidth,
+        ),
+        body: Stack(
+          children: [
+            Container(
+              color: Colors.white,
+            ),
+            Positioned(
+              top: 0.0,
+              left: 150.0.w,
+              child: SizedBox(
+                width: 400.w,
+                //color: Colors.red,
+                child: Image.asset(
+                  "assets/images/leaf2.png",
+                  fit: BoxFit.fitWidth,
+                ),
               ),
             ),
-          ),
-          Positioned(
-            child: Container(
-              child: getWidget(currentIndex),
+            Positioned(
+              child: Container(
+                child: getWidget(currentIndex),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

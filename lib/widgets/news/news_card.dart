@@ -32,27 +32,47 @@ class NewsCard extends StatelessWidget {
           decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.textBlack.withOpacity(0.5),
-                  blurRadius: 10.0,
+                  color: AppColors.textBlack.withOpacity(0.2),
+                  blurRadius: 3.0,
                 ),
               ],
+              border: Border.all(
+                  width: 2, color: AppColors.basicColor.withAlpha(150)),
               color: AppColors.textWhite,
               borderRadius: BorderRadius.circular(15.0)),
           child: Row(
             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              news.image != null
+              news.image == null
                   ? Container(
+                      padding: const EdgeInsets.all(10.0),
                       width: 88.w,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15.0)),
-                      padding: const EdgeInsets.all(8.0),
                       child: AspectRatio(
                         aspectRatio: 0.88,
-                        child: Image.network(Statics.baseUrl + news.image!),
+                        child: Container(
+                          //padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                        ),
                       ),
                     )
-                  : Container(),
+                  : Container(
+                      padding: const EdgeInsets.all(10.0),
+                      width: 88.w,
+                      child: AspectRatio(
+                        aspectRatio: 0.88,
+                        child: Container(
+                            //padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                            child: Image.network(
+                              Statics.baseUrl + news.image!,
+                              fit: BoxFit.fill,
+                            )),
+                      ),
+                    ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
