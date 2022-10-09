@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart';
@@ -161,8 +162,6 @@ class Project {
   Future<List<ProductDetailsModel>> getAllProducts(
       {int? catID, String? keyWord}) async {
     String error;
-    final prefs = await SharedPreferences.getInstance();
-    final String? token = prefs.getString('token');
 
     try {
       String url = "";
@@ -178,7 +177,6 @@ class Project {
       final response = await Statics.httpClient.get(
         Uri.parse(Statics.baseUrl + ApiLinks.getAllProduct + url),
         headers: {
-          HttpHeaders.authorizationHeader: ' Bearer $token',
           HttpHeaders.contentTypeHeader: 'application/json',
         },
       );
@@ -305,14 +303,14 @@ class Project {
         return "succss";
       } else {
         error = (jsonDecode(response.body))["error"]['message'];
-        return error;
+        return Future.error(error);
       }
     } on SocketException {
-      return "check your internet connection";
+      return Future.error("check your internet connection");
     } on ClientException {
-      return "check your internet connection";
+      return Future.error("check your internet connection");
     } catch (e) {
-      return e.toString();
+      return Future.error(e.toString());
     }
   }
 
@@ -334,14 +332,14 @@ class Project {
         return "succss";
       } else {
         error = (jsonDecode(response.body))["error"]['message'];
-        return error;
+        return Future.error(error);
       }
     } on SocketException {
-      return "check your internet connection";
+      return Future.error("check your internet connection");
     } on ClientException {
-      return "check your internet connection";
+      return Future.error("check your internet connection");
     } catch (e) {
-      return e.toString();
+      return Future.error(e.toString());
     }
   }
 
@@ -363,14 +361,14 @@ class Project {
         return "succss";
       } else {
         error = (jsonDecode(response.body))["error"]['message'];
-        return error;
+        return Future.error(error);
       }
     } on SocketException {
-      return "check your internet connection";
+      return Future.error("check your internet connection");
     } on ClientException {
-      return "check your internet connection";
+      return Future.error("check your internet connection");
     } catch (e) {
-      return e.toString();
+      return Future.error(e.toString());
     }
   }
 
@@ -460,7 +458,7 @@ class Project {
       );
 
       if (response.statusCode == 200) {
-        return "succss";
+        return "success";
       } else {
         //error = (jsonDecode(response.body))["error"]['message']['details'];
         return Future.error("error");

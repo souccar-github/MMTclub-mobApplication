@@ -11,6 +11,7 @@ import 'package:mmt_club/widgets/my_slider.dart';
 import 'package:mmt_club/styles/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mmt_club/widgets/refresh.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../pages/login_page.dart';
 import '../../widgets/custom_circular_slider.dart';
@@ -46,6 +47,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var confiermSignOut = Alert(
+      context: context,
+      onWillPopActive: true,
+      desc: Localization.of(context).getTranslatedValue("confiermSignOut"),
+      image: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Icon(
+          FontAwesomeIcons.signOutAlt,
+          color: AppColors.basicColor,
+        ),
+      ),
+      buttons: [
+        DialogButton(
+          color: AppColors.basicColor,
+          radius: BorderRadius.circular(25.0),
+          child: Text(
+            Localization.of(context).getTranslatedValue("signOut"),
+            style: const TextStyle(color: Colors.white),
+          ),
+          onPressed: () {
+            logoutBloc.add(Logout());
+          },
+        ),
+        DialogButton(
+          color: Colors.white,
+          child: Text(
+            Localization.of(context).getTranslatedValue("cancel"),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        )
+      ],
+    );
+
     return RefreshIndicator(
       key: _refreshIndicatorPofileKey,
       onRefresh: () async {
@@ -56,12 +92,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         physics: const BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.white,
             elevation: 0.0,
             expandedHeight: 200.h,
             pinned: true,
             flexibleSpace: const FlexibleSpaceBar(
               expandedTitleScale: 1.5,
+              titlePadding: EdgeInsets.only(top: 4.0, bottom: 4.0),
               centerTitle: true,
               title: Logo(imagePath: 'assets/images/logommt.png'),
             ),
@@ -78,7 +115,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LoginPage()),
+                          builder: (context) => const LoginPage(),
+                        ),
                       );
                     }
                   },
@@ -97,7 +135,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                     onPressed: () {
-                      logoutBloc.add(Logout());
+                      confiermSignOut.show();
                     },
                   )),
             ],

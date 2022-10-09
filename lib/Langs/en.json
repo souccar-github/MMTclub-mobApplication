@@ -21,6 +21,7 @@
     "sorting" : "Sorting Alphabet",
     "filtering" : "Filtering",
     "signOut":"Sign Out",
+    "confiermSignOut":"Are you sure, Do you want to sign out ?",
     "contactUs" : "Contact Us",
     "terms":"Terms",
     "FeedBack":"FeedBack and Complaints",
@@ -35,6 +36,7 @@
     "allNews":"All News",
     "thanks_for_compliment_reply":"Thanks for compliment reply",
     "try_again":"Try again",
+    "try_again_later":"Try again Later",
     "product_details":"Product Details",
     "news_details":"News Details",
     "no_items_found":"No Items Found",
@@ -50,9 +52,16 @@
     "request_Gift":"Thank you! your request will be processed",
     "sorry_there_is_no_gift_av":"Sorry! This gift can't be requested because you did not achieve the required level",
     "please_wait":"please wait a moment",
-    "already_taken":"This QR Code has already been taken"
+    "already_taken":"This QR Code has already been taken",
+    "OK":"OK",
+    "not_connection":"Oops. Looks like there's no internet connection",
+    "no_Permission":"Camera permission denied",
+    "filters_title":"Filters",
+    "validate_of_complaint":"This Field can't be Empty",
+    "close_app":"Are you sure you want to exit ?"
 
+    
 
-
+   
 
 }

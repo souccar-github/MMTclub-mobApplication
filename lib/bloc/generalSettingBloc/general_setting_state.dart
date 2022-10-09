@@ -16,7 +16,7 @@ class GetGeneralSettingError extends GeneralSettingState {
 }
 
 class GetGeneralSettingSuccessfully extends GeneralSettingState {
-  final GeneralSettingModel generalSettingModel;
+  final GeneralSettingModel? generalSettingModel;
   const GetGeneralSettingSuccessfully(this.generalSettingModel);
 }
 

@@ -30,6 +30,7 @@ class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -82,15 +83,24 @@ class Details extends StatelessWidget {
       children: [
         Container(
           child: news.image == null
-              ? Container()
-              : SizedBox(
+              ? Container(
+                  padding: const EdgeInsets.all(8.0),
                   height: MediaQuery.of(context).size.height * 0.5,
                   width: MediaQuery.of(context).size.width,
                   child: AspectRatio(
                     aspectRatio: 1,
+                    child: Image.asset(
+                      "assets/images/image_gallery.png",
+                      fit: BoxFit.contain,
+                    ),
+                  ))
+              : Container(
+                  padding: const EdgeInsets.all(16.0),
+                  child: AspectRatio(
+                    aspectRatio: 1.5,
                     child: Image.network(
                       Statics.baseUrl + news.image!,
-                      fit: BoxFit.fitHeight,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),

@@ -14,7 +14,7 @@ class GeneralSettingBloc
       if (event is GetGeneralSettingEvent) {
         emit(GetGeneralSettingWaiting());
         await Project.apiClient.getGeneralSettingModel().then((v) {
-          emit(GetGeneralSettingSuccessfully(v!));
+          emit(GetGeneralSettingSuccessfully(v));
         }).catchError((error) {
           emit(GetGeneralSettingError(error.toString()));
         });

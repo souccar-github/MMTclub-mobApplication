@@ -2,12 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mmt_club/styles/app_colors.dart';
 import 'package:mmt_club/styles/app_text.dart';
+import 'package:mmt_club/widgets/background.dart';
 import '../../Localization/localization.dart';
 import '../../pages/login_page.dart';
 import '../../widgets/timer.dart';
-import '../background.dart';
-import '../home/otp_screen.dart';
+import 'otp_screen.dart';
 
 class VerifyScreen extends StatelessWidget {
   final String phone;
@@ -25,6 +26,7 @@ class VerifyScreen extends StatelessWidget {
         child: AlertDialog(
           actions: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
                   onPressed: () {
@@ -70,7 +72,9 @@ class VerifyScreen extends StatelessWidget {
                       ),
                       Text(
                         phone,
-                        style: AppTextStyle.labelText2Theme(context),
+                        style: AppTextStyle.labelText2Theme(context).copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.textBlack),
                       ),
                     ],
                   ),

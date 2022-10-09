@@ -52,13 +52,14 @@ class _ProductScreenState extends State<ProductScreen> {
           style: AppTextStyle.appBarTextTheme(context),
         ),
         leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: AppColors.textBlack,
-            )),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: AppColors.textBlack,
+          ),
+        ),
       ),
       body: BlocConsumer(
         bloc: productBloc,
@@ -128,6 +129,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       )
                     : Expanded(
                         child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
                           itemCount: state.productDetailsModels.length,
                           itemBuilder: (BuildContext context, int index) {
                             var data = state.productDetailsModels;
@@ -171,47 +173,85 @@ class _ProductScreenState extends State<ProductScreen> {
           bloc: categoryBloc,
           builder: (context, state) {
             if (state is GetCategoryWaiting) {
-              return const AlertDialog(
-                content: Center(
-                  child: CircularProgressIndicator(),
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                contentPadding: const EdgeInsets.all(20),
+                content: Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
               );
             } else if (state is GetCategorySuccessfully) {
               return AlertDialog(
-                title: TextField(
-                  controller: searchController,
-                  cursorHeight: 25,
-                  cursorColor: AppColors.basicColor,
-                  decoration: InputDecoration(
-                    suffixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25.0)),
-                  ),
-                  maxLines: 1,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
                 ),
-                content: StatefulBuilder(
-                  builder: (cxtStateFulBuilder, setInnerState) {
-                    return ListView.builder(
-                      itemCount: state.cats.length,
-                      itemBuilder: (cxt, index) {
-                        return ListTile(
-                          title: Text(state.cats[index].name),
-                          leading: Radio<int>(
-                            toggleable: true,
-                            value: state.cats[index].id,
-                            groupValue: catID,
-                            onChanged: (var value) {
-                              log(catID.toString());
-                              setInnerState(() {
-                                catID = value;
-                              });
-                            },
-                            activeColor: AppColors.basicColor,
-                          ),
-                        );
-                      },
-                    );
-                  },
+                contentPadding: const EdgeInsets.all(20),
+                title: Text(
+                  Localization.of(context).getTranslatedValue("filters_title"),
+                  textAlign: TextAlign.center,
+                ),
+                content: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.35,
+                    child: StatefulBuilder(
+                      builder: ((context, setInnerState) => Column(
+                            children: [
+                              Container(
+                                height: 45.h,
+                                child: TextField(
+                                  controller: searchController,
+                                  cursorHeight: 25.h,
+                                  cursorColor: AppColors.basicColor,
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.all(10),
+                                    suffixIcon: const Icon(Icons.search),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(25.0),
+                                    ),
+                                  ),
+                                  maxLines: 1,
+                                ),
+                              ),
+                              Container(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.25,
+                                child: ListView.builder(
+                                  physics: const BouncingScrollPhysics(),
+                                  padding: const EdgeInsets.all(0),
+                                  itemCount: state.cats.length,
+                                  itemBuilder: (cxt, index) {
+                                    return ListTile(
+                                      contentPadding:
+                                          EdgeInsets.fromLTRB(0, 0, 0, 8),
+                                      title: Text(state.cats[index].name),
+                                      leading: Radio<int>(
+                                        toggleable: true,
+                                        value: state.cats[index].id,
+                                        groupValue: catID,
+                                        onChanged: (var value) {
+                                          // log(catID.toString());
+                                          setInnerState(() {
+                                            catID = value;
+                                          });
+                                        },
+                                        activeColor: AppColors.basicColor,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          )),
+                    ),
+                  ),
                 ),
                 actions: <Widget>[
                   TextButton(
@@ -226,7 +266,8 @@ class _ProductScreenState extends State<ProductScreen> {
 
                       Navigator.of(ctx).pop();
                     },
-                    child: const Text("Ok"),
+                    child:
+                        Text(Localization.of(context).getTranslatedValue("OK")),
                   ),
                 ],
               );

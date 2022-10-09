@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:mmt_club/Localization/localization.dart';
 import 'package:mmt_club/bloc/qrCodeBloc/qrcode_bloc.dart';
+import 'package:mmt_club/widgets/my_toast.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -66,23 +67,29 @@ class _QRWidgetState extends State<QRWidget> {
     final waitingAlert = Alert(
       context: context,
       type: AlertType.info,
+      onWillPopActive: true,
       buttons: [],
       desc: Localization.of(context).getTranslatedValue("please_wait"),
       content: const Center(
         child: CircularProgressIndicator(),
       ),
+      closeIcon: Container(),
+      closeFunction: () {},
     );
 
     final successAlert = Alert(
       context: context,
       type: AlertType.success,
+      onWillPopActive: true,
       desc: Localization.of(context)
           .getTranslatedValue("your_qrcode_has_been_scanned"),
       buttons: [
         DialogButton(
-          child: Text(
-            Localization.of(context).getTranslatedValue("go_to_home"),
-            style: const TextStyle(color: Colors.white),
+          child: Center(
+            child: Text(
+              Localization.of(context).getTranslatedValue("go_to_home"),
+              style: const TextStyle(color: Colors.white),
+            ),
           ),
           onPressed: () {
             result = null;
@@ -91,17 +98,21 @@ class _QRWidgetState extends State<QRWidget> {
           width: 120,
         )
       ],
+      closeIcon: Container(),
+      closeFunction: () {},
     );
-    errorAlert(message) {
+
+    infoAlert(message) {
       return Alert(
         context: context,
-        type: AlertType.error,
-        desc: Localization.of(context)
-            .getTranslatedValue("check_your_connection"),
+        type: AlertType.info,
+        onWillPopActive: true,
+        desc: message,
         buttons: [
           DialogButton(
             child: Text(
               Localization.of(context).getTranslatedValue("go_to_home"),
+              textAlign: TextAlign.center,
               style: const TextStyle(color: Colors.white),
             ),
             onPressed: () {
@@ -111,6 +122,34 @@ class _QRWidgetState extends State<QRWidget> {
             width: 120,
           )
         ],
+        closeIcon: Container(),
+        closeFunction: () {},
+      );
+    }
+
+    errorAlert(message) {
+      return Alert(
+        context: context,
+        type: AlertType.error,
+        onWillPopActive: true,
+        desc: message,
+        buttons: [
+          DialogButton(
+            child: Center(
+              child: Text(
+                Localization.of(context).getTranslatedValue("go_to_home"),
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+            onPressed: () {
+              result = null;
+              _finish();
+            },
+            width: 120,
+          )
+        ],
+        closeIcon: Container(),
+        closeFunction: () {},
       );
     }
 
@@ -124,8 +163,8 @@ class _QRWidgetState extends State<QRWidget> {
           successAlert.show();
         } else if (state is ReadQrcodeError) {
           waitingAlert.dismiss();
-          if (state.error.code == 3) {
-            errorAlert(Localization.of(context)
+          if (state.error.code.toString() == "3") {
+            infoAlert(Localization.of(context)
                     .getTranslatedValue("already_taken"))
                 .show();
           } else {
@@ -167,7 +206,8 @@ class _QRWidgetState extends State<QRWidget> {
         ),
         Positioned(
             top: 10,
-            left: MediaQuery.of(context).size.width / 2.5,
+            left: 0,
+            right: 0,
             child: IconButton(
               onPressed: () {
                 controller!.toggleFlash();
@@ -198,9 +238,13 @@ class _QRWidgetState extends State<QRWidget> {
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
     log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
     if (!p) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(content: Text('no Permission')),
+      // );
+      MyToast.show(
+          context: context,
+          text: Localization.of(context).getTranslatedValue('no Permission'),
+          toastState: ToastState.ERROR);
     }
   }
 
@@ -213,11 +257,14 @@ class _QRWidgetState extends State<QRWidget> {
 
   void _finish() {
     //controller?.dispose();
-    Navigator.pop(context);
+    // Navigator.pop(context);
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-          builder: (context) => DefaultBottomBarController(child: HomePage())),
+        builder: (context) => DefaultBottomBarController(
+          child: HomePage(),
+        ),
+      ),
     );
   }
 }

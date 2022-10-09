@@ -60,12 +60,20 @@ class GiftScreen extends StatelessWidget {
               children: [
                 Container(
                   child: gift.image == null
-                      ? Container()
+                      ? Container(
+                          padding: const EdgeInsets.all(16.0),
+                          child: AspectRatio(
+                            aspectRatio: 1.25,
+                            child: Image.asset(
+                              "assets/images/image_gallery.png",
+                            ),
+                          ),
+                        )
                       : AspectRatio(
                           aspectRatio: 1,
                           child: Image.network(
                             Statics.baseUrl + gift.image!,
-                            fit: BoxFit.fitHeight,
+                            fit: BoxFit.contain,
                           ),
                         ),
                 ),

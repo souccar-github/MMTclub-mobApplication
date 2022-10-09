@@ -27,15 +27,24 @@ class Category extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              if (categoryModel.image != null)
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.06,
-                  width: MediaQuery.of(context).size.width * 0.3,
-                  child: Image.network(
-                    Statics.baseUrl + categoryModel.image!,
-                    fit: BoxFit.contain,
-                  ),
-                ),
+              // default.png
+              categoryModel.image == null
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      child: Image.asset(
+                        "assets/images/image_gallery.png",
+                        fit: BoxFit.contain,
+                      ),
+                    )
+                  : SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      width: MediaQuery.of(context).size.width * 0.3,
+                      child: Image.network(
+                        Statics.baseUrl + categoryModel.image!,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
               CustomButton(
                 onPressed: () {
                   Navigator.push(
